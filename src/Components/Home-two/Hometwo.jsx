@@ -1027,7 +1027,8 @@ const textFieldStyle = {
                           '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
                           '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
                           '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' }
+                          '@media (min-width: 3840px)': { fontSize: '32px' },
+                          'marginTop': '-8px'
                         },
                         '& .MuiInput-input': {
                           fontSize: 'clamp(14px, 2vw, 20px)',
@@ -1058,7 +1059,8 @@ const textFieldStyle = {
                           '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
                           '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
                           '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' }
+                          '@media (min-width: 3840px)': { fontSize: '32px' },
+                          'marginTop': '-8px'
                         },
                         '& .MuiInput-input': {
                           fontSize: 'clamp(14px, 2vw, 20px)',
@@ -1097,7 +1099,8 @@ const textFieldStyle = {
                           '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
                           '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
                           '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' }
+                          '@media (min-width: 3840px)': { fontSize: '32px' },
+                          'marginTop': '-8px'
                         },
                         '& .MuiInput-input': {
                           fontSize: 'clamp(14px, 2vw, 20px)',
@@ -1128,7 +1131,8 @@ const textFieldStyle = {
                           '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
                           '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
                           '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' }
+                          '@media (min-width: 3840px)': { fontSize: '32px' },
+                          'marginTop': '-8px'
                         },
                         '& .MuiInput-input': {
                           fontSize: 'clamp(14px, 2vw, 20px)',
@@ -1318,7 +1322,8 @@ const textFieldStyle = {
                           '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
                           '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
                           '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' }
+                          '@media (min-width: 3840px)': { fontSize: '32px' },
+                          'marginTop': '-8px'
                         },
                         '& .MuiInput-input': {
                           fontSize: 'clamp(14px, 2vw, 20px)',
@@ -1351,7 +1356,8 @@ const textFieldStyle = {
                           '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
                           '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
                           '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' }
+                          '@media (min-width: 3840px)': { fontSize: '32px' },
+                          'marginTop': '-8px'
                         },
                         '& .MuiInput-input': {
                           fontSize: 'clamp(14px, 2vw, 20px)',
@@ -1382,7 +1388,7 @@ const textFieldStyle = {
       name="privacyPolicy"
       checked={formData.privacyPolicy}
       onChange={handleChange}
-      className="mt-1 2xl:mt-2 
+      className="flex-shrink-0 mt-1 2xl:mt-2 
                 [@media_(min-width:_1800px)]:mt-2.5
                 [@media_(min-width:_2200px)]:mt-2.8
                 [@media_(min-width:_2560px)]:mt-3 
@@ -1428,15 +1434,14 @@ const textFieldStyle = {
                   [@media_(min-width:_1800px)]:gap-7
                   [@media_(min-width:_2200px)]:gap-7.5
                   [@media_(min-width:_2560px)]:gap-8 
-                  [@media_(min-width:_3840px)]:gap-10 
-                  font-helvetica">
+                  [@media_(min-width:_3840px)]:gap-10">
     <input
       type="checkbox"
       name="humanVerification"
       checked={formData.humanVerification}
       onChange={handleChange}
       data-tf-element-role="consent-opt-in"
-      className="mt-1 2xl:mt-2 
+      className="flex-shrink-0 mt-1 2xl:mt-2 
                 [@media_(min-width:_1800px)]:mt-2.5
                 [@media_(min-width:_2200px)]:mt-2.8
                 [@media_(min-width:_2560px)]:mt-3 
@@ -1451,7 +1456,8 @@ const textFieldStyle = {
                     [@media_(min-width:_1800px)]:text-[clamp(16px,_1vw,_17px)]
                     [@media_(min-width:_2200px)]:text-[clamp(17px,_0.9vw,_18px)]
                     [@media_(min-width:_2560px)]:text-lg 
-                    [@media_(min-width:_3840px)]:text-xl">
+                    [@media_(min-width:_3840px)]:text-xl
+                    font-helvetica">
       Please check this box to verify you're a person.
     </div>
   </div>
