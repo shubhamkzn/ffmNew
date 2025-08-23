@@ -1,0 +1,9 @@
+
+
+
+  input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset; /* Match your form background */
+  box-shadow: 0 0 0px 1000px #FFFFFF inset;
+  -webkit-text-fill-color: #000000; /* Match your text color */
+
+}

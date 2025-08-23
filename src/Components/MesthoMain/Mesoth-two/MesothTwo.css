@@ -1,0 +1,282 @@
+/* Custom carousel container */
+.custom-carousel {
+  padding: 40px 0;
+  display: none; /* Hide by default on mobile */
+  overflow: hidden;
+  position: relative;
+}
+
+/* Mobile cards container */
+.mobile-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* Enhanced carousel slide styling with controlled drag */
+.carousel .slide {
+  padding: 0 8px;
+  box-sizing: border-box;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother easing */
+  cursor: grab;
+}
+
+.carousel .slide:active {
+  cursor: grabbing;
+}
+
+/* Smooth carousel wrapper with drag control */
+.carousel .slider-wrapper {
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  touch-action: pan-x; /* Only allow horizontal panning */
+}
+
+/* Enhanced slider container with better drag performance */
+.carousel .slider {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  transform: translate3d(0, 0, 0); /* Force hardware acceleration */
+  backface-visibility: hidden;
+}
+
+/* Prevent text selection during drag */
+.carousel .slider * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Re-enable pointer events for interactive elements */
+.carousel .control-dots,
+.carousel .control-prev,
+.carousel .control-next,
+.carousel button {
+  pointer-events: auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Smooth carousel control dots */
+.carousel .control-dots {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: auto;
+}
+
+.carousel .control-dots .dot {
+  opacity: 0.3;
+  filter: none;
+  box-shadow: none;
+  background: #ccc;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 4px;
+  outline: 0;
+  transition: all 0.3s ease;
+}
+
+.carousel .control-dots .dot.selected,
+.carousel .control-dots .dot:hover {
+  opacity: 1;
+  background: #2E4A7D;
+  transform: scale(1.2);
+}
+
+/* Carousel navigation arrows - hidden by default, shown via React */
+.carousel .control-arrow {
+  display: none !important;
+}
+
+/* Custom arrow buttons styling */
+.carousel .control-prev,
+.carousel .control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
+}
+
+.carousel .control-prev:hover,
+.carousel .control-next:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.carousel .control-prev {
+  left: 20px;
+}
+
+.carousel .control-next {
+  right: 20px;
+}
+
+/* Enhanced card hover effects */
+.carousel .slide > div {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel .slide:hover > div {
+  transform: translateY(-8px);
+}
+
+/* Prevent text selection during carousel interactions */
+.custom-carousel {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: pan-x; /* Only allow horizontal touch gestures */
+}
+
+/* Smooth drag behavior */
+.carousel.carousel-slider {
+  position: relative;
+  margin: 0;
+  overflow: visible;
+}
+
+.carousel.carousel-slider * {
+  box-sizing: border-box;
+}
+
+/* Reduce bounce effect on mobile */
+@media (max-width: 767px) {
+  .carousel .slider-wrapper {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+}
+
+/* Smooth scroll behavior for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced image loading */
+.carousel img {
+  transition: all 0.4s ease;
+  will-change: transform;
+}
+
+.carousel img:hover {
+  transform: scale(1.02);
+}
+
+/* Loading state */
+.carousel img[loading="lazy"] {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive improvements */
+@media (min-width: 768px) {
+  .custom-carousel {
+    display: block;
+  }
+  
+  .mobile-cards {
+    display: none;
+  }
+  
+  /* Better spacing on tablets */
+  .carousel .slide {
+    padding: 0 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .custom-carousel {
+    padding: 60px 0;
+  }
+  
+  .carousel .slide {
+    padding: 0 16px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .carousel .control-prev {
+    left: 30px;
+  }
+  
+  .carousel .control-next {
+    right: 30px;
+  }
+}
+
+/* Accessibility improvements */
+.carousel .slide:focus-visible {
+  outline: 2px solid #2E4A7D;
+  outline-offset: 4px;
+  border-radius: 20px;
+}
+
+.carousel .control-dots .dot:focus-visible {
+  outline: 2px solid #2E4A7D;
+  outline-offset: 2px;
+}
+
+/* Performance optimizations */
+.carousel .slider-wrapper,
+.carousel .slider {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Prevent layout shift during loading */
+.carousel .slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 767px) {
+  .mobile-cards > div {
+    transition: transform 0.3s ease;
+  }
+  
+  .mobile-cards > div:hover {
+    transform: translateY(-4px);
+  }
+}
