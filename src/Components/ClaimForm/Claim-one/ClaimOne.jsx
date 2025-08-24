@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect,useMemo } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import ClaimFormImg from "../../../assets/Vector.svg";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -20,8 +20,8 @@ import { Button, CircularProgress, Grid, Paper } from "@mui/material";
 
 // Custom CAPTCHA Component
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
-  const [captchaText, setCaptchaText] = useState('');
-  const [userInput, setUserInput] = useState('');
+  const [captchaText, setCaptchaText] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [charOffsets, setCharOffsets] = useState([]);
@@ -33,8 +33,9 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
       setIsSpeaking(false);
     }
 
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
     let offsets = [];
     for (let i = 0; i < 6; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -42,7 +43,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
     }
     setCaptchaText(result);
     setCharOffsets(offsets);
-    setUserInput('');
+    setUserInput("");
     setIsValid(false);
     onCaptchaChange && onCaptchaChange(false);
   };
@@ -71,17 +72,16 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   }, [isSpeaking]);
 
   const speakCaptcha = () => {
-    if ('speechSynthesis' in window) {
+    if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
       setIsSpeaking(true);
 
       const voices = window.speechSynthesis.getVoices();
-      const maleUsVoice = voices.find(voice =>
-        voice.lang === 'en-US' &&
-        voice.name.toLowerCase().includes('david')
-      ) || voices.find(voice =>
-        voice.lang === 'en-US'
-      );
+      const maleUsVoice =
+        voices.find(
+          (voice) =>
+            voice.lang === "en-US" && voice.name.toLowerCase().includes("david")
+        ) || voices.find((voice) => voice.lang === "en-US");
 
       let currentIndex = 0;
       const speakNextChar = () => {
@@ -91,7 +91,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           utterance.rate = 0.5;
           utterance.pitch = 0.9;
           utterance.volume = 1.0;
-          utterance.lang = 'en-US';
+          utterance.lang = "en-US";
 
           if (maleUsVoice) {
             utterance.voice = maleUsVoice;
@@ -132,18 +132,20 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
             className="absolute inset-0 opacity-30"
             style={{
               backgroundImage: `repeating-linear-gradient(0deg, #ccc, #ccc 1px, transparent 1px, transparent 5px)`,
-              backgroundSize: '100% 10px',
-              backgroundPosition: '0 50%'
+              backgroundSize: "100% 10px",
+              backgroundPosition: "0 50%",
             }}
           />
           <div className="relative z-10">
-            {captchaText.split('').map((char, index) => (
+            {captchaText.split("").map((char, index) => (
               <span
                 key={index}
                 style={{
-                  transform: `translateY(${parseFloat(charOffsets[index] || 0)}px)`,
-                  display: 'inline-block',
-                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+                  transform: `translateY(${parseFloat(
+                    charOffsets[index] || 0
+                  )}px)`,
+                  display: "inline-block",
+                  textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
                 }}
                 className="mx-0.5"
               >
@@ -167,12 +169,13 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
               type="button"
               onClick={speakCaptcha}
               disabled={isSpeaking}
-              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${isSpeaking ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
+              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${
+                isSpeaking ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               title="Listen to CAPTCHA"
               aria-label="Listen to CAPTCHA"
             >
-              {isSpeaking ? '🔊🎵' : '🔊'}
+              {isSpeaking ? "🔊🎵" : "🔊"}
             </button>
           )}
         </div>
@@ -197,15 +200,14 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           value={userInput}
           onChange={handleInputChange}
           placeholder="Enter CAPTCHA"
-          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${userInput !== '' && !isValid
-            ? 'border-red-500 focus:ring-red-500'
-            : 'border-gray-300'
-            }`}
+          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            userInput !== "" && !isValid
+              ? "border-red-500 focus:ring-red-500"
+              : "border-gray-300"
+          }`}
         />
-        {userInput !== '' && !isValid && (
-          <p className="text-red-500 text-sm mt-1">
-            CAPTCHA does not match
-          </p>
+        {userInput !== "" && !isValid && (
+          <p className="text-red-500 text-sm mt-1">CAPTCHA does not match</p>
         )}
         {isValid && (
           <p className="text-green-500 text-sm mt-1">
@@ -315,14 +317,17 @@ const get4KResponsiveClasses = () => ({
   container: "max-w-[1200px] 2xl:max-w-[1600px] 4k:max-w-[2000px]",
   padding: "px-4 sm:px-8 2xl:px-12 4k:px-16 py-8 sm:py-12 2xl:py-16 4k:py-20",
   baseText: "text-[20px] 2xl:text-[22px] 4k:text-[24px]",
-  heroTitle: "text-[40px] sm:text-[60px] md:text-[40px] lg:text-[80px] 2xl:text-[90px] 4k:text-[100px]",
-  heroSubtext: "text-[18px] sm:text-[20px] md:text-[15px] 2xl:text-[20px] 4k:text-[22px]",
+  heroTitle:
+    "text-[40px] sm:text-[60px] md:text-[40px] lg:text-[80px] 2xl:text-[90px] 4k:text-[100px]",
+  heroSubtext:
+    "text-[18px] sm:text-[20px] md:text-[15px] 2xl:text-[20px] 4k:text-[22px]",
   formMaxWidth: "max-w-2xl 2xl:max-w-3xl 4k:max-w-4xl",
   formPadding: "p-8 2xl:p-10 4k:p-12",
   formSpacing: "space-y-6 2xl:space-y-8 4k:space-y-10",
   gap: "gap-6 md:gap-8 2xl:gap-10 4k:gap-12",
   imageWidth: "w-full md:w-[230px] 2xl:w-[280px] 4k:w-[320px]",
-  buttonPadding: "px-8 sm:px-12 2xl:px-16 4k:px-20 py-3 sm:py-4 2xl:py-5 4k:py-6",
+  buttonPadding:
+    "px-8 sm:px-12 2xl:px-16 4k:px-20 py-3 sm:py-4 2xl:py-5 4k:py-6",
   buttonText: "text-sm sm:text-base md:text-lg 2xl:text-xl 4k:text-2xl",
   checkboxScale: "scale-110 2xl:scale-125 4k:scale-150",
   legalText: "text-xs sm:text-sm 2xl:text-base 4k:text-lg",
@@ -511,7 +516,7 @@ const ClaimOne = () => {
   // Helper function to clear specific field error
   const clearFieldError = (fieldName) => {
     if (errors[fieldName]) {
-      setErrors(prev => {
+      setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[fieldName];
         return newErrors;
@@ -522,11 +527,11 @@ const ClaimOne = () => {
   // Handle input changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
+
     // Handle phone number formatting
     if (name === "phoneNumber") {
       const digitsOnly = value.replace(/\D/g, "").slice(0, 10);
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         [name]: digitsOnly,
       }));
@@ -541,7 +546,7 @@ const ClaimOne = () => {
       today.setHours(23, 59, 59, 999); // Set to end of today for comparison
 
       if (selectedDate > today) {
-        setErrors(prev => ({
+        setErrors((prev) => ({
           ...prev,
           dateOfDiagnosis: "Diagnosis date cannot be in the future",
         }));
@@ -557,12 +562,15 @@ const ClaimOne = () => {
       let age = today.getFullYear() - birthDate.getFullYear();
       const monthDiff = today.getMonth() - birthDate.getMonth();
 
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < birthDate.getDate())
+      ) {
         age--;
       }
 
       if (age < 18) {
-        setErrors(prev => ({
+        setErrors((prev) => ({
           ...prev,
           dateOfBirth: "You must be at least 18 years old",
         }));
@@ -576,7 +584,7 @@ const ClaimOne = () => {
       if (!checked) {
         // Reset CAPTCHA when unchecking human verification
         setIsCaptchaValid(false);
-        setCaptchaResetTrigger(prev => prev + 1);
+        setCaptchaResetTrigger((prev) => prev + 1);
         clearFieldError("captcha");
       }
     }
@@ -584,7 +592,7 @@ const ClaimOne = () => {
     // Handle diagnosis type change - clear other diagnosis when not "other"
     if (name === "diagnosisType") {
       if (value !== "other") {
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
           diagnosisType: value,
           otherDiagnosis: "", // Clear other diagnosis field
@@ -595,7 +603,7 @@ const ClaimOne = () => {
       }
     }
 
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
@@ -609,7 +617,10 @@ const ClaimOne = () => {
     const digits = value.replace(/\D/g, "");
     if (digits.length <= 3) return digits;
     if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(
+      6,
+      10
+    )}`;
   };
 
   // Validate form before submission
@@ -626,14 +637,16 @@ const ClaimOne = () => {
     if (!formData.firstName.trim()) {
       newErrors.firstName = "First name is required";
     } else if (!validateName(formData.firstName)) {
-      newErrors.firstName = "Please enter a valid first name (letters only, 2-30 characters)";
+      newErrors.firstName =
+        "Please enter a valid first name (letters only, 2-30 characters)";
     }
 
     // Last Name validation
     if (!formData.lastName.trim()) {
       newErrors.lastName = "Last name is required";
     } else if (!validateName(formData.lastName)) {
-      newErrors.lastName = "Please enter a valid last name (letters only, 2-30 characters)";
+      newErrors.lastName =
+        "Please enter a valid last name (letters only, 2-30 characters)";
     }
 
     // Phone number validation
@@ -669,14 +682,17 @@ const ClaimOne = () => {
       let age = today.getFullYear() - birthDate.getFullYear();
       const monthDiff = today.getMonth() - birthDate.getMonth();
 
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < birthDate.getDate())
+      ) {
         age--;
       }
 
       if (age < 18) {
         newErrors.dateOfBirth = "You must be at least 18 years old";
       }
-      
+
       // Check if birth date is in the future
       if (birthDate > today) {
         newErrors.dateOfBirth = "Birth date cannot be in the future";
@@ -689,16 +705,17 @@ const ClaimOne = () => {
     } else {
       const diagnosisDate = new Date(formData.dateOfDiagnosis);
       today.setHours(23, 59, 59, 999); // Set to end of today for comparison
-      
+
       if (diagnosisDate > today) {
         newErrors.dateOfDiagnosis = "Diagnosis date cannot be in the future";
       }
-      
+
       // Logical check: diagnosis date should not be before birth date
       if (formData.dateOfBirth) {
         const birthDate = new Date(formData.dateOfBirth);
         if (diagnosisDate < birthDate) {
-          newErrors.dateOfDiagnosis = "Diagnosis date cannot be before birth date";
+          newErrors.dateOfDiagnosis =
+            "Diagnosis date cannot be before birth date";
         }
       }
     }
@@ -753,7 +770,7 @@ const ClaimOne = () => {
     });
     setErrors({});
     setIsCaptchaValid(false);
-    setCaptchaResetTrigger(prev => prev + 1);
+    setCaptchaResetTrigger((prev) => prev + 1);
   };
 
   const handleSubmit = async (e) => {
@@ -765,9 +782,9 @@ const ClaimOne = () => {
     }
 
     setIsSubmitting(true);
-    
+
     const submitData = {
-      ...formData, 
+      ...formData,
       certId: certId,
       pingUrl: pingUrl,
       tokenUrl: tokenUrl,
@@ -781,7 +798,9 @@ const ClaimOne = () => {
         resetForm();
         toast.success("Form submitted successfully!");
       } else {
-        toast.error(result.message || "Error submitting form. Please try again.");
+        toast.error(
+          result.message || "Error submitting form. Please try again."
+        );
       }
     } catch (error) {
       console.error("Form submission error:", error);
@@ -806,21 +825,27 @@ const ClaimOne = () => {
     const initializeTrustedForm = () => {
       // Check for initial values
       const checkInitialValues = () => {
-        const certUrlField = document.querySelector('input[name="xxTrustedFormCertUrl"]');
-        const tokenField = document.querySelector('input[name="xxTrustedFormCertToken"]');
-        const pingUrlField = document.querySelector('input[name="xxTrustedFormPingUrl"]');
-        
+        const certUrlField = document.querySelector(
+          'input[name="xxTrustedFormCertUrl"]'
+        );
+        const tokenField = document.querySelector(
+          'input[name="xxTrustedFormCertToken"]'
+        );
+        const pingUrlField = document.querySelector(
+          'input[name="xxTrustedFormPingUrl"]'
+        );
+
         if (certUrlField?.value) {
           setCertId(certUrlField.value);
-          console.log("Initial cert_id:", certUrlField.value);
+          // console.log("Initial cert_id:", certUrlField.value);
         }
         if (tokenField?.value) {
           setTokenUrl(tokenField.value);
-          console.log("Initial tokenUrl:", tokenField.value);
+          // console.log("Initial tokenUrl:", tokenField.value);
         }
         if (pingUrlField?.value) {
           setPingUrl(pingUrlField.value);
-          console.log("Initial pingUrl:", pingUrlField.value);
+          // console.log("Initial pingUrl:", pingUrlField.value);
         }
       };
 
@@ -832,30 +857,36 @@ const ClaimOne = () => {
             mutation.attributeName === "value"
           ) {
             const fieldName = mutation.target.name;
-            
+
             // Extract values from all TrustedForm fields
-            const certUrlField = document.querySelector('input[name="xxTrustedFormCertUrl"]');
-            const tokenField = document.querySelector('input[name="xxTrustedFormCertToken"]');
-            const pingUrlField = document.querySelector('input[name="xxTrustedFormPingUrl"]');
-            
-            const certUrlValue = certUrlField?.value || '';
-            const tokenValue = tokenField?.value || '';
-            const pingUrlValue = pingUrlField?.value || '';
+            const certUrlField = document.querySelector(
+              'input[name="xxTrustedFormCertUrl"]'
+            );
+            const tokenField = document.querySelector(
+              'input[name="xxTrustedFormCertToken"]'
+            );
+            const pingUrlField = document.querySelector(
+              'input[name="xxTrustedFormPingUrl"]'
+            );
+
+            const certUrlValue = certUrlField?.value || "";
+            const tokenValue = tokenField?.value || "";
+            const pingUrlValue = pingUrlField?.value || "";
 
             // Update state with the correct values
             setCertId(certUrlValue);
             setPingUrl(pingUrlValue);
             setTokenUrl(tokenValue);
 
-            console.log("TrustedForm field update:", {
-              fieldName,
-              certId: certUrlValue,
-              pingUrl: pingUrlValue,
-              tokenUrl: tokenValue
-            });
+            // console.log("TrustedForm field update:", {
+            //   fieldName,
+            //   certId: certUrlValue,
+            //   pingUrl: pingUrlValue,
+            //   tokenUrl: tokenValue
+            // });
 
             // Fetch cert data if we have a cert URL and it's the cert field that changed
-            if (certUrlValue && fieldName === 'xxTrustedFormCertUrl') {
+            if (certUrlValue && fieldName === "xxTrustedFormCertUrl") {
               fetchCertData(certUrlValue);
             }
           }
@@ -864,16 +895,16 @@ const ClaimOne = () => {
 
       // Observe all TrustedForm fields for changes
       const fieldsToObserve = [
-        'xxTrustedFormCertUrl',
-        'xxTrustedFormCertToken', 
-        'xxTrustedFormPingUrl'
+        "xxTrustedFormCertUrl",
+        "xxTrustedFormCertToken",
+        "xxTrustedFormPingUrl",
       ];
 
-      fieldsToObserve.forEach(fieldName => {
+      fieldsToObserve.forEach((fieldName) => {
         const field = document.querySelector(`input[name="${fieldName}"]`);
         if (field) {
           observer.observe(field, { attributes: true });
-          console.log(`Observing field: ${fieldName}`);
+          // console.log(`Observing field: ${fieldName}`);
         }
       });
 
@@ -927,7 +958,9 @@ const ClaimOne = () => {
 
   return (
     <>
-      <div className={`hidden md:block w-full relative bg-[#faf3ec] overflow-hidden text-left ${responsive.baseText} text-[#4b2c5e] font-helvetica ${responsive.padding}`}>
+      <div
+        className={`hidden md:block w-full relative bg-[#faf3ec] overflow-hidden text-left ${responsive.baseText} text-[#4b2c5e] font-helvetica ${responsive.padding}`}
+      >
         <ToastContainer position="top-right" />
 
         {/* Success Dialog */}
@@ -992,7 +1025,9 @@ const ClaimOne = () => {
         </Dialog>
 
         {/* Hero Section */}
-        <div className={`${responsive.container} mx-auto flex flex-col md:flex-row items-center md:items-start ${responsive.gap} mb-8 md:mb-16 2xl:mb-20 4k:mb-24`}>
+        <div
+          className={`${responsive.container} mx-auto flex flex-col md:flex-row items-center md:items-start ${responsive.gap} mb-8 md:mb-16 2xl:mb-20 4k:mb-24`}
+        >
           <div className={`${responsive.imageWidth} flex-shrink-0`}>
             <img
               src={ClaimFormImg}
@@ -1001,13 +1036,17 @@ const ClaimOne = () => {
             />
           </div>
           <div className="flex-1 pt-4 md:pt-8 2xl:pt-12 4k:pt-16 text-left">
-            <i className={`font-["Georgia"] relative ${responsive.heroTitle} inline-block text-[#4b2c5e]`}>
+            <i
+              className={`font-["Georgia"] relative ${responsive.heroTitle} inline-block text-[#4b2c5e]`}
+            >
               <span>{`You Don't Have to `}</span>
               <span className="text-[rgba(75,44,94,0.66)]">
                 Face This Alone{" "}
               </span>
             </i>
-            <div className={`font-["Helvetica"] relative ${responsive.heroSubtext} text-[#4b2c5e] inline-block pb-[30px] 2xl:pb-[40px] 4k:pb-[50px]`}>
+            <div
+              className={`font-["Helvetica"] relative ${responsive.heroSubtext} text-[#4b2c5e] inline-block pb-[30px] 2xl:pb-[40px] 4k:pb-[50px]`}
+            >
               {`If you, or a family member has been diagnosed with mesothelioma, don't hesitate to reach out. `}
             </div>
           </div>
@@ -1377,7 +1416,8 @@ const ClaimOne = () => {
                         className="block"
                         data-tf-element-role="consent-opt-in"
                       >
-                        By submitting this form and signing up for texts, I consent to the{" "}
+                        By submitting this form and signing up for texts, I
+                        consent to the{" "}
                         <a
                           href="/PrivacyPolicy"
                           className="underline hover:text-blue-200"
@@ -1391,7 +1431,18 @@ const ClaimOne = () => {
                         >
                           disclaimer
                         </a>
-                        &nbsp; and give my express written consent to affiliates and/or lawyer to contact me at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding general customer service including case options, and reminders and follow-ups and that I may be called using automatic dialing equipment. Message frequency varies. Unsubscribe at any time by replying STOP or clicking the unsubscribe link (where available). Reply HELP for help. This is Legal advertising.
+                        &nbsp; and give my express written consent to affiliates
+                        and/or lawyer to contact me at the number provided
+                        above, even if this number is a wireless number or if I
+                        am presently listed on a Do Not Call list. I understand
+                        that I may be contacted by telephone, email, text
+                        message or mail regarding general customer service
+                        including case options, and reminders and follow-ups and
+                        that I may be called using automatic dialing equipment.
+                        Message frequency varies. Unsubscribe at any time by
+                        replying STOP or clicking the unsubscribe link (where
+                        available). Reply HELP for help. This is Legal
+                        advertising.
                       </span>
                     </div>
                   </div>
@@ -1423,12 +1474,14 @@ const ClaimOne = () => {
                   {/* CAPTCHA Component - Shows only when human verification is checked */}
                   {formData.humanVerification && (
                     <div className="mt-4 2xl:mt-6 4k:mt-8">
-                      <CustomCaptcha 
+                      <CustomCaptcha
                         onCaptchaChange={handleCaptchaChange}
                         resetTrigger={captchaResetTrigger}
                       />
                       {errors.captcha && (
-                        <div className={`text-red-500 ${responsive.legalText} mt-2`}>
+                        <div
+                          className={`text-red-500 ${responsive.legalText} mt-2`}
+                        >
                           {errors.captcha}
                         </div>
                       )}
@@ -1441,7 +1494,11 @@ const ClaimOne = () => {
                     type="submit"
                     disabled={isSubmitting}
                     data-tf-element-role="consent-opt-in"
-                    className={`rounded-[10px] 2xl:rounded-[12px] 4k:rounded-[14px] bg-[#4b2c5e] text-[#f8f2e9] ${responsive.buttonPadding} font-bold transition-colors ${responsive.buttonText} flex items-center justify-center gap-2 2xl:gap-3 4k:gap-4 ${
+                    className={`rounded-[10px] 2xl:rounded-[12px] 4k:rounded-[14px] bg-[#4b2c5e] text-[#f8f2e9] ${
+                      responsive.buttonPadding
+                    } font-bold transition-colors ${
+                      responsive.buttonText
+                    } flex items-center justify-center gap-2 2xl:gap-3 4k:gap-4 ${
                       isSubmitting
                         ? "opacity-70 cursor-not-allowed"
                         : "hover:bg-[#3a2249]"
@@ -1547,7 +1604,7 @@ const ClaimOne = () => {
             <div className='font-["Helvetica"] relative text-[18px] sm:text-[20px] md:text-[24px] text-[#4b2c5e] inline-block pb-[30px]'>{`If you, or a family member has been diagnosed with mesothelioma, don't hesitate to reach out. `}</div>
           </div>
         </div>
-        
+
         <div className="p-6 rounded-[20px] mt-8 bg-white shadow-md mx-auto max-w-[500px]">
           <p className="text-[#4B2C5E] font-georgia text-xl italic mb-6 text-center">
             <em>Your journey to justice starts here.</em>
@@ -1890,7 +1947,7 @@ const ClaimOne = () => {
               {/* CAPTCHA Component - Mobile - Shows only when human verification is checked */}
               {formData.humanVerification && (
                 <div>
-                  <CustomCaptcha 
+                  <CustomCaptcha
                     onCaptchaChange={handleCaptchaChange}
                     resetTrigger={captchaResetTrigger}
                   />

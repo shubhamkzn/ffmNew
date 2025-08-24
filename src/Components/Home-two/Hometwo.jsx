@@ -5,7 +5,7 @@ import emailjs from "@emailjs/browser";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReCAPTCHA from "react-google-recaptcha";
-import './Hometwo.css'
+import "./Hometwo.css";
 import { sendHomeFormEmail } from "../../utils/emailService";
 import {
   Button,
@@ -30,8 +30,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
-  const [captchaText, setCaptchaText] = useState('');
-  const [userInput, setUserInput] = useState('');
+  const [captchaText, setCaptchaText] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [charOffsets, setCharOffsets] = useState([]);
@@ -43,8 +43,9 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
       setIsSpeaking(false);
     }
 
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
     let offsets = [];
     for (let i = 0; i < 6; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -52,7 +53,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
     }
     setCaptchaText(result);
     setCharOffsets(offsets);
-    setUserInput('');
+    setUserInput("");
     setIsValid(false);
     onCaptchaChange && onCaptchaChange(false);
   };
@@ -81,17 +82,16 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   }, [isSpeaking]);
 
   const speakCaptcha = () => {
-    if ('speechSynthesis' in window) {
+    if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
       setIsSpeaking(true);
 
       const voices = window.speechSynthesis.getVoices();
-      const maleUsVoice = voices.find(voice =>
-        voice.lang === 'en-US' &&
-        voice.name.toLowerCase().includes('david')
-      ) || voices.find(voice =>
-        voice.lang === 'en-US'
-      );
+      const maleUsVoice =
+        voices.find(
+          (voice) =>
+            voice.lang === "en-US" && voice.name.toLowerCase().includes("david")
+        ) || voices.find((voice) => voice.lang === "en-US");
 
       let currentIndex = 0;
       const speakNextChar = () => {
@@ -101,7 +101,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           utterance.rate = 0.5;
           utterance.pitch = 0.9;
           utterance.volume = 1.0;
-          utterance.lang = 'en-US';
+          utterance.lang = "en-US";
 
           if (maleUsVoice) {
             utterance.voice = maleUsVoice;
@@ -142,18 +142,20 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
             className="absolute inset-0 opacity-30"
             style={{
               backgroundImage: `repeating-linear-gradient(0deg, #ccc, #ccc 1px, transparent 1px, transparent 5px)`,
-              backgroundSize: '100% 10px',
-              backgroundPosition: '0 50%'
+              backgroundSize: "100% 10px",
+              backgroundPosition: "0 50%",
             }}
           />
           <div className="relative z-10">
-            {captchaText.split('').map((char, index) => (
+            {captchaText.split("").map((char, index) => (
               <span
                 key={index}
                 style={{
-                  transform: `translateY(${parseFloat(charOffsets[index] || 0)}px)`,
-                  display: 'inline-block',
-                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+                  transform: `translateY(${parseFloat(
+                    charOffsets[index] || 0
+                  )}px)`,
+                  display: "inline-block",
+                  textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
                 }}
                 className="mx-0.5"
               >
@@ -177,12 +179,13 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
               type="button"
               onClick={speakCaptcha}
               disabled={isSpeaking}
-              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${isSpeaking ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
+              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${
+                isSpeaking ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               title="Listen to CAPTCHA"
               aria-label="Listen to CAPTCHA"
             >
-              {isSpeaking ? '🔊🎵' : '🔊'}
+              {isSpeaking ? "🔊🎵" : "🔊"}
             </button>
           )}
         </div>
@@ -207,15 +210,14 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           value={userInput}
           onChange={handleInputChange}
           placeholder="Enter CAPTCHA"
-          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${userInput !== '' && !isValid
-            ? 'border-red-500 focus:ring-red-500'
-            : 'border-gray-300'
-            }`}
+          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            userInput !== "" && !isValid
+              ? "border-red-500 focus:ring-red-500"
+              : "border-gray-300"
+          }`}
         />
-        {userInput !== '' && !isValid && (
-          <p className="text-red-500 text-sm mt-1">
-            CAPTCHA does not match
-          </p>
+        {userInput !== "" && !isValid && (
+          <p className="text-red-500 text-sm mt-1">CAPTCHA does not match</p>
         )}
         {isValid && (
           <p className="text-green-500 text-sm mt-1">
@@ -307,9 +309,12 @@ const menuItemStyle = {
 
 // Phone validation utility
 const isValidUSPhone = (phone) => {
-  const phoneRegex = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
-  return phoneRegex.test(phone);
+  const digits = phone.replace(/\D/g, "");
+  const phoneRegex = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/; // US number
+  return phoneRegex.test(digits);
 };
+
+
 
 const Hometwo = () => {
   const formRef = useRef();
@@ -335,24 +340,26 @@ const Hometwo = () => {
   const [pingUrl, setPingUrl] = useState("");
   const [certId, setCertId] = useState("");
   const [tokenUrl, setTokenUrl] = useState("");
-  
+
   // State for form submission
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   // State for success dialog
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
-  
+
   // CAPTCHA related states
   const [captchaValue, setCaptchaValue] = useState("");
   const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
 
-  // Phone number formatting and validation for US numbers
-  const formatPhoneNumber = (value) => {
-    const cleaned = value.replace(/\D/g, "");
-    if (cleaned.length <= 3) return cleaned;
-    if (cleaned.length <= 6) return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
-    return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
-  };
+ // Formatting: (123) 456-7890
+// Formatter
+const formatPhoneNumber = (value) => {
+  const cleaned = value.replace(/\D/g, "").slice(0, 10); // only digits, max 10
+  if (cleaned.length <= 3) return cleaned;
+  if (cleaned.length <= 6) return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+  return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+};
+
 
   // Handle CAPTCHA change
   const handleCaptchaChange = (value) => {
@@ -365,101 +372,110 @@ const Hometwo = () => {
       }));
     }
   };
-
-  // TrustedForm integration
+  // Enhanced useEffect for TrustedForm monitoring
   useEffect(() => {
-    let observerInstance = null;
-    let timeoutId = null;
+    let observer;
+    let timeoutId;
 
-    const initializeTrustedFormObserver = () => {
-      try {
-        // Create observer to watch for TrustedForm field updates
-        observerInstance = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            if (mutation.type === "attributes" && mutation.attributeName === "value") {
-              const target = mutation.target;
+    const initializeTrustedForm = () => {
+      // Check for initial values
+      const checkInitialValues = () => {
+        const certUrlField = document.querySelector(
+          'input[name="xxTrustedFormCertUrl"]'
+        );
+        const tokenField = document.querySelector(
+          'input[name="xxTrustedFormCertToken"]'
+        );
+        const pingUrlField = document.querySelector(
+          'input[name="xxTrustedFormPingUrl"]'
+        );
 
-              try {
-                if (target?.name === "xxTrustedFormCertUrl" && target.value) {
-                  setCertId(target.value);
-                  // console.log("TrustedForm Cert ID updated:", target.value);
-                }
+        if (certUrlField?.value) {
+          setCertId(certUrlField.value);
+          // console.log("Initial cert_id:", certUrlField.value);
+        }
+        if (tokenField?.value) {
+          setTokenUrl(tokenField.value);
+          // console.log("Initial tokenUrl:", tokenField.value);
+        }
+        if (pingUrlField?.value) {
+          setPingUrl(pingUrlField.value);
+          // console.log("Initial pingUrl:", pingUrlField.value);
+        }
+      };
 
-                if (target?.name === "xxTrustedFormPingUrl" && target.value) {
-                  setPingUrl(target.value);
-                  // console.log("TrustedForm Ping URL updated:", target.value);
-                }
+      // Set up mutation observer
+      observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (
+            mutation.type === "attributes" &&
+            mutation.attributeName === "value"
+          ) {
+            const fieldName = mutation.target.name;
 
-                if (target?.name === "xxTrustedFormCertToken" && target.value) {
-                  setTokenUrl(target.value);
-                  // console.log("TrustedForm Token URL updated:", target.value);
-                }
-              } catch (error) {
-                console.warn("TrustedForm observer error:", error);
-              }
-            }
-          });
-        });
-
-        // Start observing TrustedForm fields
-        const startObserving = () => {
-          try {
-            const trustedFormFields = document.querySelectorAll(
-              '[name="xxTrustedFormCertUrl"], [name="xxTrustedFormPingUrl"], [name="xxTrustedFormCertToken"]'
+            // Extract values from all TrustedForm fields
+            const certUrlField = document.querySelector(
+              'input[name="xxTrustedFormCertUrl"]'
+            );
+            const tokenField = document.querySelector(
+              'input[name="xxTrustedFormCertToken"]'
+            );
+            const pingUrlField = document.querySelector(
+              'input[name="xxTrustedFormPingUrl"]'
             );
 
-            trustedFormFields.forEach((field) => {
-              if (field && observerInstance) {
-                observerInstance.observe(field, { 
-                  attributes: true, 
-                  attributeFilter: ['value'] 
-                });
+            const certUrlValue = certUrlField?.value || "";
+            const tokenValue = tokenField?.value || "";
+            const pingUrlValue = pingUrlField?.value || "";
 
-                // Check if values are already populated
-                if (field.value) {
-                  switch (field.name) {
-                    case "xxTrustedFormCertUrl":
-                      setCertId(field.value);
-                      // console.log("TrustedForm Cert ID initialized:", field.value);
-                      break;
-                    case "xxTrustedFormPingUrl":
-                      setPingUrl(field.value);
-                      // console.log("TrustedForm Ping URL initialized:", field.value);
-                      break;
-                    case "xxTrustedFormCertToken":
-                      setTokenUrl(field.value);
-                      // console.log("TrustedForm Token URL initialized:", field.value);
-                      break;
-                    default:
-                      break;
-                  }
-                }
-              }
-            });
-          } catch (error) {
-            console.warn("Error starting TrustedForm observation:", error);
+            // Update state with the correct values
+            setCertId(certUrlValue);
+            setPingUrl(pingUrlValue);
+            setTokenUrl(tokenValue);
+
+            // console.log("TrustedForm field update:", {
+            //   fieldName,
+            //   certId: certUrlValue,
+            //   pingUrl: pingUrlValue,
+            //   tokenUrl: tokenValue
+            // });
+
+            // Fetch cert data if we have a cert URL and it's the cert field that changed
+            if (certUrlValue && fieldName === "xxTrustedFormCertUrl") {
+              fetchCertData(certUrlValue);
+            }
           }
-        };
+        });
+      });
 
-        // Wait for TrustedForm script to load and populate fields
-        timeoutId = setTimeout(startObserving, 1000);
-      } catch (error) {
-        console.error("Error initializing TrustedForm observer:", error);
-      }
+      // Observe all TrustedForm fields for changes
+      const fieldsToObserve = [
+        "xxTrustedFormCertUrl",
+        "xxTrustedFormCertToken",
+        "xxTrustedFormPingUrl",
+      ];
+
+      fieldsToObserve.forEach((fieldName) => {
+        const field = document.querySelector(`input[name="${fieldName}"]`);
+        if (field) {
+          observer.observe(field, { attributes: true });
+          // console.log(`Observing field: ${fieldName}`);
+        }
+      });
+
+      // Check for initial values after a delay to allow TrustedForm to load
+      timeoutId = setTimeout(checkInitialValues, 1000);
     };
 
-    initializeTrustedFormObserver();
+    // Initialize TrustedForm monitoring
+    initializeTrustedForm();
 
     return () => {
-      try {
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-        }
-        if (observerInstance) {
-          observerInstance.disconnect();
-        }
-      } catch (error) {
-        console.error("Error cleaning up TrustedForm observer:", error);
+      if (observer) {
+        observer.disconnect();
+      }
+      if (timeoutId) {
+        clearTimeout(timeoutId);
       }
     };
   }, []);
@@ -467,53 +483,79 @@ const Hometwo = () => {
   const fetchCertData = async (certUrl) => {
     try {
       const response = await fetch(certUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
-      console.log("TrustedForm Cert Data:", data);
+      // console.log("TrustedForm Cert Data:", data);
+      return data;
     } catch (error) {
       console.error("Error fetching TrustedForm cert:", error);
+      return null;
     }
   };
   // Handle input changes
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    let newValue = type === 'checkbox' ? checked : value;
-    
-    // Special handling for phone number
-    if (name === 'phoneNumber') {
-      const cleaned = value.replace(/\D/g, "");
-      if (cleaned.length <= 10) {
-        newValue = cleaned;
-      } else {
-        return; // Don't update if more than 10 digits
-      }
-    }
-    
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: newValue,
-    }));
+const handleChange = (e) => {
+  const { name, value, type, checked } = e.target;
+  let newValue = type === "checkbox" ? checked : value;
 
-    // Clear error when user starts typing in the field
-    if (errors[name]) {
+  // Special handling for phone number
+  if (name === "phoneNumber") {
+    // Keep only digits, limit to 10
+    const cleaned = value.replace(/\D/g, "").slice(0, 10);
+
+    // Format for display
+    if (cleaned.length <= 3) {
+      newValue = cleaned;
+    } else if (cleaned.length <= 6) {
+      newValue = `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+    } else {
+      newValue = `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
+    }
+
+    // Live validation
+    if (cleaned.length === 10) {
+      const phoneRegex = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
+      if (!phoneRegex.test(cleaned)) {
+        setErrors((prev) => ({
+          ...prev,
+          phoneNumber: "Please enter a valid US phone number",
+        }));
+      } else {
+        setErrors((prev) => ({ ...prev, phoneNumber: "" }));
+      }
+    } else {
+      // Clear error while typing before 10 digits
+      setErrors((prev) => ({ ...prev, phoneNumber: "" }));
+    }
+  }
+
+  setFormData((prevState) => ({
+    ...prevState,
+    [name]: newValue,
+  }));
+
+  // Clear error for other fields when typing
+  if (errors[name] && name !== "phoneNumber") {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  }
+
+  // Reset CAPTCHA when humanVerification is unchecked
+  if (name === "humanVerification" && !checked) {
+    setCaptchaValue("");
+    setCaptchaResetTrigger((prev) => prev + 1);
+    if (errors.captcha) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: "",
+        captcha: "",
       }));
     }
+  }
+};
 
-    // Reset CAPTCHA when humanVerification is unchecked
-    if (name === 'humanVerification' && !checked) {
-      setCaptchaValue("");
-      setCaptchaResetTrigger(prev => prev + 1);
-      // Clear CAPTCHA error
-      if (errors.captcha) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          captcha: "",
-        }));
-      }
-    }
-  };
 
   // Validate form
   const validateForm = () => {
@@ -532,17 +574,13 @@ const Hometwo = () => {
       newErrors.lastName = "Last name must be at least 1 character";
     }
 
-    // Phone number validation
-    if (!formData.phoneNumber.trim()) {
-      newErrors.phoneNumber = "Phone number is required";
-    } else {
-      const digits = formData.phoneNumber.replace(/\D/g, "");
-      if (digits.length !== 10) {
-        newErrors.phoneNumber = "Phone number must be exactly 10 digits";
-      } else if (!isValidUSPhone(digits)) {
-        newErrors.phoneNumber = "Please enter a valid US phone number";
-      }
-    }
+  // Example inside your form validation
+if (!formData.phoneNumber.trim()) {
+  newErrors.phoneNumber = "Phone number is required";
+} else if (!isValidUSPhone(formData.phoneNumber)) {
+  newErrors.phoneNumber = "Please enter a valid US phone number";
+}
+
 
     if (!formData.emailId.trim()) {
       newErrors.emailId = "Email is required";
@@ -575,7 +613,8 @@ const Hometwo = () => {
     }
 
     if (!formData.privacyPolicy) {
-      newErrors.privacyPolicy = "You must agree to the privacy policy and disclaimer";
+      newErrors.privacyPolicy =
+        "You must agree to the privacy policy and disclaimer";
     }
 
     if (!formData.humanVerification) {
@@ -634,7 +673,7 @@ const Hometwo = () => {
           });
           // Reset CAPTCHA
           setCaptchaValue("");
-          setCaptchaResetTrigger(prev => prev + 1);
+          setCaptchaResetTrigger((prev) => prev + 1);
           // Clear errors
           setErrors({});
         } else {
@@ -651,7 +690,6 @@ const Hometwo = () => {
     }
   };
 
-
   // Define responsive styles object for consistency
   const responsive = {
     legalText: `text-xs sm:text-sm 2xl:text-base 
@@ -662,33 +700,32 @@ const Hometwo = () => {
   };
 
   // Define text field styles
-const textFieldStyle = {
-  marginBottom: "16px", // Add bottom margin
-  "& .MuiInputLabel-root": {
-    color: "#4b2c5e",
-    fontSize: "20px",
-    fontFamily: "Helvetica",
-    fontWeight: "bold",
-    "&.Mui-focused": {
+  const textFieldStyle = {
+    marginBottom: "16px", // Add bottom margin
+    "& .MuiInputLabel-root": {
       color: "#4b2c5e",
+      fontSize: "20px",
+      fontFamily: "Helvetica",
+      fontWeight: "bold",
+      "&.Mui-focused": {
+        color: "#4b2c5e",
+      },
     },
-  },
-  "& .MuiInput-underline:before": {
-    borderBottomColor: "#4b2c5e",
-  },
-  "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-    borderBottomColor: "#4b2c5e",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "#4b2c5e",
-  },
-  "& .MuiInput-input": {
-    fontSize: "18px",
-    color: "#4b2c5e",
-    fontFamily: "Helvetica",
-  },
-};
-
+    "& .MuiInput-underline:before": {
+      borderBottomColor: "#4b2c5e",
+    },
+    "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+      borderBottomColor: "#4b2c5e",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "#4b2c5e",
+    },
+    "& .MuiInput-input": {
+      fontSize: "18px",
+      color: "#4b2c5e",
+      fontFamily: "Helvetica",
+    },
+  };
 
   const selectFieldStyle = {
     "& .MuiSelect-select": {
@@ -727,24 +764,6 @@ const textFieldStyle = {
       <ToastContainer position="top-right" />
 
       {/* Hidden TrustedForm Fields - centralized */}
-      <input
-        type="hidden"
-        id="xxTrustedFormCertUrl"
-        name="xxTrustedFormCertUrl"
-        value={certId}
-      />
-      <input
-        type="hidden"
-        id="xxTrustedFormCertToken"
-        name="xxTrustedFormCertToken"
-        value={tokenUrl}
-      />
-      <input
-        type="hidden"
-        id="xxTrustedFormPingUrl"
-        name="xxTrustedFormPingUrl"
-        value={pingUrl}
-      />
 
       {/* Success Dialog */}
       <Dialog
@@ -808,13 +827,16 @@ const textFieldStyle = {
       </Dialog>
 
       {/* Desktop Version */}
-      <div className="hidden md:block bg-[#FAF3EC] font-georgia m-0 p-0 2xl:mt-[-30%] 
+      <div
+        className="hidden md:block bg-[#FAF3EC] font-georgia m-0 p-0 2xl:mt-[-30%] 
                       [@media_(min-width:_1800px)]:mt-[-28%]
                       [@media_(min-width:_2200px)]:mt-[-26%]
                       [@media_(min-width:_2560px)]:mt-[-25%] 
-                      [@media_(min-width:_3840px)]:mt-[-20%]">
-         <div className="bg-[#FAF3EC] font-georgia m-0 p-0">
-          <div className="w-full md:w-[900px] lg:w-[1100px] xl:w-[1280px] 2xl:w-[1440px] 
+                      [@media_(min-width:_3840px)]:mt-[-20%]"
+      >
+        <div className="bg-[#FAF3EC] font-georgia m-0 p-0">
+          <div
+            className="w-full md:w-[900px] lg:w-[1100px] xl:w-[1280px] 2xl:w-[1440px] 
                           [@media_(min-width:_1800px)]:w-[1600px]
                           [@media_(min-width:_2200px)]:w-[1700px]
                           [@media_(min-width:_2560px)]:w-[1800px] 
@@ -830,18 +852,21 @@ const textFieldStyle = {
                           [@media_(min-width:_2200px)]:ml-[16%]
                           [@media_(min-width:_2560px)]:ml-[15%] 
                           [@media_(min-width:_3840px)]:ml-[10%] 
-                          mx-auto">   
-            <div className="absolute mt-32 2xl:mt-40 
+                          mx-auto"
+          >
+            <div
+              className="absolute mt-32 2xl:mt-40 
                             [@media_(min-width:_1800px)]:mt-44
                             [@media_(min-width:_2200px)]:mt-46
                             [@media_(min-width:_2560px)]:mt-48 
                             [@media_(min-width:_3840px)]:mt-64 
-                            w-auto">
+                            w-auto"
+            >
               {/* Replace with your actual image imports */}
-                <img
-                  src={Vector2}
-                  alt="Senior Couple"
-                  className="w-[120px] h-[120px] md:w-[160px] md:h-[160px] lg:w-[250px] lg:h-[250px] xl:w-[300px] xl:h-[300px] 
+              <img
+                src={Vector2}
+                alt="Senior Couple"
+                className="w-[120px] h-[120px] md:w-[160px] md:h-[160px] lg:w-[250px] lg:h-[250px] xl:w-[300px] xl:h-[300px] 
                             2xl:w-[358px] 2xl:h-[364px] 
                             [@media_(min-width:_1800px)]:w-[380px] [@media_(min-width:_1800px)]:h-[385px]
                             [@media_(min-width:_2200px)]:w-[405px] [@media_(min-width:_2200px)]:h-[410px]
@@ -858,11 +883,11 @@ const textFieldStyle = {
                             [@media_(min-width:_2560px)]:mt-[45px] 
                             [@media_(min-width:_3840px)]:mt-[55px] 
                             object-contain"
-                />
-                <img
-                  src={Vector1}
-                  alt="Family"
-                  className="w-[70px] h-[48px] ml-[40%] mt-[10%] transform rotate-[1.701deg] hidden md:block 
+              />
+              <img
+                src={Vector1}
+                alt="Family"
+                className="w-[70px] h-[48px] ml-[40%] mt-[10%] transform rotate-[1.701deg] hidden md:block 
                             md:w-[113px] md:h-[111px] md:ml-[54%] lg:w-[170px] lg:h-[170px] lg:ml-[120px] lg:mt-[0%] 
                             xl:w-[200px] xl:h-[200px] xl:ml-[140px] xl:mt-[1px] 
                             2xl:w-[220px] 2xl:h-[136px] 2xl:ml-[170px] 2xl:mt-[0px] 
@@ -871,10 +896,11 @@ const textFieldStyle = {
                             [@media_(min-width:_2560px)]:w-[265px] [@media_(min-width:_2560px)]:h-[164px] [@media_(min-width:_2560px)]:ml-[204px] [@media_(min-width:_2560px)]:mt-[0px] 
                             [@media_(min-width:_3840px)]:w-[330px] [@media_(min-width:_3840px)]:h-[205px] [@media_(min-width:_3840px)]:ml-[255px] [@media_(min-width:_3840px)]:mt-[0px] 
                             flex-shrink-0 absolute object-contain"
-                /> 
+              />
             </div>
             <div className="flex flex-col items-center text-center h-auto ">
-              <div className="mt-[15%] ml-[75%] sm:ml-[23%] lg:ml-[28%] 
+              <div
+                className="mt-[15%] ml-[75%] sm:ml-[23%] lg:ml-[28%] 
                               2xl:ml-[30%] 
                               [@media_(min-width:_1800px)]:ml-[30.5%]
                               [@media_(min-width:_2200px)]:ml-[31%]
@@ -897,20 +923,29 @@ const textFieldStyle = {
                               [@media_(min-width:_2200px)]:px-5.5
                               [@media_(min-width:_2560px)]:px-6 
                               [@media_(min-width:_3840px)]:px-8 
-                              items-start text-left">
-                <h1 className="mt-15 text-left text-[96px] md:text-[55px] lg:text-[70px] xl:text-[96px] 
+                              items-start text-left"
+              >
+                <h1
+                  className="mt-15 text-left text-[96px] md:text-[55px] lg:text-[70px] xl:text-[96px] 
                                2xl:text-[120px] 
                                [@media_(min-width:_1800px)]:text-[clamp(120px,_7vw,_130px)]
                                [@media_(min-width:_2200px)]:text-[clamp(130px,_6.5vw,_135px)]
                                [@media_(min-width:_2560px)]:text-[140px] 
                                [@media_(min-width:_3840px)]:text-[180px] 
-                               break-words lg:whitespace-normal w-full">
+                               break-words lg:whitespace-normal w-full"
+                >
                   <span className="italic font-georgia">At 70,</span>
                   <br />
-                  <span className="text-[#4B2C5E]/60 italic font-georgia">Every Day</span>
-                  <span className="text-[#4B2C5E]/60 italic font-georgia"> Matters</span>
-                </h1>      
-                <p className="text-[#4B2C5E] font-helvetica text-[24px] md:text-[16px] lg:text-[20px] xl:text-[24px] 
+                  <span className="text-[#4B2C5E]/60 italic font-georgia">
+                    Every Day
+                  </span>
+                  <span className="text-[#4B2C5E]/60 italic font-georgia">
+                    {" "}
+                    Matters
+                  </span>
+                </h1>
+                <p
+                  className="text-[#4B2C5E] font-helvetica text-[24px] md:text-[16px] lg:text-[20px] xl:text-[24px] 
                               2xl:text-[30px] 
                               [@media_(min-width:_1800px)]:text-[clamp(30px,_2vw,_33px)]
                               [@media_(min-width:_2200px)]:text-[clamp(33px,_1.8vw,_35px)]
@@ -931,13 +966,17 @@ const textFieldStyle = {
                               leading-normal 2xl:leading-relaxed 
                               [@media_(min-width:_1800px)]:leading-relaxed
                               [@media_(min-width:_2200px)]:leading-relaxed
-                              [@media_(min-width:_3840px)]:leading-normal">
-                  You're a parent, a partner, a friend-and you deserve more than care. You deserve compassion, presence, and someone who walks beside you every step of the way.
+                              [@media_(min-width:_3840px)]:leading-normal"
+                >
+                  You're a parent, a partner, a friend-and you deserve more than
+                  care. You deserve compassion, presence, and someone who walks
+                  beside you every step of the way.
                 </p>
               </div>
             </div>
 
-            <div className="p-[30px] 2xl:p-[40px] 
+            <div
+              className="p-[30px] 2xl:p-[40px] 
                             [@media_(min-width:_1800px)]:p-[45px]
                             [@media_(min-width:_2200px)]:p-[48px]
                             [@media_(min-width:_2560px)]:p-[50px] 
@@ -968,8 +1007,10 @@ const textFieldStyle = {
                             xl:h-[730px] xl:mt-0 2xl:w-[40%] 2xl:h-[757px] 2xl:mt-0 
                             [@media_(min-width:_1800px)]:w-[42%] [@media_(min-width:_1800px)]:h-[850px]
                             [@media_(min-width:_2200px)]:w-[43%] [@media_(min-width:_2200px)]:h-[920px]
-                            [@media_(min-width:_3840px)]:w-[45%] [@media_(min-width:_3840px)]:h-[1140px]">
-              <p className="text-[#4B2C5E] font-feature-dlig font-georgia text-[24px] 
+                            [@media_(min-width:_3840px)]:w-[45%] [@media_(min-width:_3840px)]:h-[1140px]"
+            >
+              <p
+                className="text-[#4B2C5E] font-feature-dlig font-georgia text-[24px] 
                             2xl:text-[30px] 
                             [@media_(min-width:_1800px)]:text-[clamp(30px,_2vw,_33px)]
                             [@media_(min-width:_2200px)]:text-[clamp(33px,_1.8vw,_35px)]
@@ -989,7 +1030,8 @@ const textFieldStyle = {
                             [@media_(min-width:_1800px)]:h-[130px]
                             [@media_(min-width:_2200px)]:h-[135px]
                             [@media_(min-width:_2560px)]:h-[140px] 
-                            [@media_(min-width:_3840px)]:h-[180px]">
+                            [@media_(min-width:_3840px)]:h-[180px]"
+              >
                 <em>Your journey to justice starts here.</em>
               </p>
 
@@ -1004,11 +1046,31 @@ const textFieldStyle = {
                           [@media_(min-width:_3840px)]:space-y-12"
                 data-tf-element-role="offer"
               >
-                <div className="flex flex-col md:flex-row gap-6 md:gap-8 2xl:gap-10 
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertUrl"
+                  name="xxTrustedFormCertUrl"
+                  value={certId}
+                />
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertToken"
+                  name="xxTrustedFormCertToken"
+                  value={tokenUrl}
+                />
+                <input
+                  type="hidden"
+                  id="xxTrustedFormPingUrl"
+                  name="xxTrustedFormPingUrl"
+                  value={pingUrl}
+                />
+                <div
+                  className="flex flex-col md:flex-row gap-6 md:gap-8 2xl:gap-10 
                                 [@media_(min-width:_1800px)]:gap-11
                                 [@media_(min-width:_2200px)]:gap-11.5
                                 [@media_(min-width:_2560px)]:gap-12 
-                                [@media_(min-width:_3840px)]:gap-16">
+                                [@media_(min-width:_3840px)]:gap-16"
+                >
                   <div className="w-full md:flex-1">
                     <TextField
                       id="firstName"
@@ -1022,21 +1084,29 @@ const textFieldStyle = {
                       helperText={errors.firstName}
                       sx={{
                         ...textFieldStyle,
-                        '& .MuiInputLabel-root': {
-                          fontSize: 'clamp(16px, 2.5vw, 24px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
-                          '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' },
-                          'marginTop': '-8px'
+                        "& .MuiInputLabel-root": {
+                          fontSize: "clamp(16px, 2.5vw, 24px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(24px, 1.5vw, 26px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(26px, 1.3vw, 27px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "28px" },
+                          "@media (min-width: 3840px)": { fontSize: "32px" },
+                          marginTop: "-8px",
                         },
-                        '& .MuiInput-input': {
-                          fontSize: 'clamp(14px, 2vw, 20px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(20px, 1.3vw, 22px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(22px, 1.1vw, 23px)' },
-                          '@media (min-width: 2560px)': { fontSize: '24px' },
-                          '@media (min-width: 3840px)': { fontSize: '28px' }
-                        }
+                        "& .MuiInput-input": {
+                          fontSize: "clamp(14px, 2vw, 20px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(20px, 1.3vw, 22px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(22px, 1.1vw, 23px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "24px" },
+                          "@media (min-width: 3840px)": { fontSize: "28px" },
+                        },
                       }}
                     />
                   </div>
@@ -1054,63 +1124,82 @@ const textFieldStyle = {
                       helperText={errors.lastName}
                       sx={{
                         ...textFieldStyle,
-                        '& .MuiInputLabel-root': {
-                          fontSize: 'clamp(16px, 2.5vw, 24px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
-                          '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' },
-                          'marginTop': '-8px'
+                        "& .MuiInputLabel-root": {
+                          fontSize: "clamp(16px, 2.5vw, 24px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(24px, 1.5vw, 26px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(26px, 1.3vw, 27px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "28px" },
+                          "@media (min-width: 3840px)": { fontSize: "32px" },
+                          marginTop: "-8px",
                         },
-                        '& .MuiInput-input': {
-                          fontSize: 'clamp(14px, 2vw, 20px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(20px, 1.3vw, 22px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(22px, 1.1vw, 23px)' },
-                          '@media (min-width: 2560px)': { fontSize: '24px' },
-                          '@media (min-width: 3840px)': { fontSize: '28px' }
-                        }
+                        "& .MuiInput-input": {
+                          fontSize: "clamp(14px, 2vw, 20px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(20px, 1.3vw, 22px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(22px, 1.1vw, 23px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "24px" },
+                          "@media (min-width: 3840px)": { fontSize: "28px" },
+                        },
                       }}
                     />
                   </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-6 md:gap-8 2xl:gap-10 
+                <div
+                  className="flex flex-col md:flex-row gap-6 md:gap-8 2xl:gap-10 
                                 [@media_(min-width:_1800px)]:gap-11
                                 [@media_(min-width:_2200px)]:gap-11.5
                                 [@media_(min-width:_2560px)]:gap-12 
-                                [@media_(min-width:_3840px)]:gap-16">
+                                [@media_(min-width:_3840px)]:gap-16"
+                >
                   <div className="w-full md:flex-1">
-                    <TextField
-                      id="phoneNumber"
-                      name="phoneNumber"
-                      label="Phone Number *"
-                      variant="standard"
-                      type="tel"
-                      fullWidth
-                      value={formatPhoneNumber(formData.phoneNumber)}
-                      onChange={handleChange}
-                      error={!!errors.phoneNumber}
-                      helperText={errors.phoneNumber}
-                      placeholder="+1 XXX-XXX-XXXX"
-                      sx={{
-                        ...textFieldStyle,
-                        '& .MuiInputLabel-root': {
-                          fontSize: 'clamp(16px, 2.5vw, 24px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
-                          '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' },
-                          'marginTop': '-8px'
-                        },
-                        '& .MuiInput-input': {
-                          fontSize: 'clamp(14px, 2vw, 20px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(20px, 1.3vw, 22px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(22px, 1.1vw, 23px)' },
-                          '@media (min-width: 2560px)': { fontSize: '24px' },
-                          '@media (min-width: 3840px)': { fontSize: '28px' }
-                        }
-                      }}
-                    />
+                   <TextField
+  id="phoneNumber"
+  name="phoneNumber"
+  label="Phone Number *"
+  variant="standard"
+  type="tel"
+  fullWidth
+  value={formData.phoneNumber}
+  onChange={handleChange}
+  error={!!errors.phoneNumber}
+  helperText={errors.phoneNumber || ""}
+  placeholder="(XXX) XXX-XXXX"
+  sx={{
+    ...textFieldStyle,
+    "& .MuiInputLabel-root": {
+      fontSize: "clamp(16px, 2.5vw, 24px)",
+      "@media (min-width: 1800px)": {
+        fontSize: "clamp(24px, 1.5vw, 26px)",
+      },
+      "@media (min-width: 2200px)": {
+        fontSize: "clamp(26px, 1.3vw, 27px)",
+      },
+      "@media (min-width: 2560px)": { fontSize: "28px" },
+      "@media (min-width: 3840px)": { fontSize: "32px" },
+      marginTop: "-8px",
+    },
+    "& .MuiInput-input": {
+      fontSize: "clamp(14px, 2vw, 20px)",
+      "@media (min-width: 1800px)": {
+        fontSize: "clamp(20px, 1.3vw, 22px)",
+      },
+      "@media (min-width: 2200px)": {
+        fontSize: "clamp(22px, 1.1vw, 23px)",
+      },
+      "@media (min-width: 2560px)": { fontSize: "24px" },
+      "@media (min-width: 3840px)": { fontSize: "28px" },
+    },
+  }}
+/>
+
                   </div>
                   <div className="w-full md:flex-1">
                     <TextField
@@ -1126,31 +1215,41 @@ const textFieldStyle = {
                       helperText={errors.emailId}
                       sx={{
                         ...textFieldStyle,
-                        '& .MuiInputLabel-root': {
-                          fontSize: 'clamp(16px, 2.5vw, 24px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
-                          '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' },
-                          'marginTop': '-8px'
+                        "& .MuiInputLabel-root": {
+                          fontSize: "clamp(16px, 2.5vw, 24px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(24px, 1.5vw, 26px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(26px, 1.3vw, 27px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "28px" },
+                          "@media (min-width: 3840px)": { fontSize: "32px" },
+                          marginTop: "-8px",
                         },
-                        '& .MuiInput-input': {
-                          fontSize: 'clamp(14px, 2vw, 20px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(20px, 1.3vw, 22px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(22px, 1.1vw, 23px)' },
-                          '@media (min-width: 2560px)': { fontSize: '24px' },
-                          '@media (min-width: 3840px)': { fontSize: '28px' }
-                        }
+                        "& .MuiInput-input": {
+                          fontSize: "clamp(14px, 2vw, 20px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(20px, 1.3vw, 22px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(22px, 1.1vw, 23px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "24px" },
+                          "@media (min-width: 3840px)": { fontSize: "28px" },
+                        },
                       }}
                     />
                   </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-6 md:gap-8 2xl:gap-10 
+                <div
+                  className="flex flex-col md:flex-row gap-6 md:gap-8 2xl:gap-10 
                                 [@media_(min-width:_1800px)]:gap-11
                                 [@media_(min-width:_2200px)]:gap-11.5
                                 [@media_(min-width:_2560px)]:gap-12 
-                                [@media_(min-width:_3840px)]:gap-16">
+                                [@media_(min-width:_3840px)]:gap-16"
+                >
                   <div className="w-full md:flex-1">
                     <TextField
                       id="dateOfBirth"
@@ -1173,20 +1272,28 @@ const textFieldStyle = {
                       }}
                       sx={{
                         ...textFieldStyle,
-                        '& .MuiInputLabel-root': {
-                          fontSize: 'clamp(16px, 2.5vw, 24px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
-                          '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' }
+                        "& .MuiInputLabel-root": {
+                          fontSize: "clamp(16px, 2.5vw, 24px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(24px, 1.5vw, 26px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(26px, 1.3vw, 27px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "28px" },
+                          "@media (min-width: 3840px)": { fontSize: "32px" },
                         },
-                        '& .MuiInput-input': {
-                          fontSize: 'clamp(14px, 2vw, 20px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(20px, 1.3vw, 22px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(22px, 1.1vw, 23px)' },
-                          '@media (min-width: 2560px)': { fontSize: '24px' },
-                          '@media (min-width: 3840px)': { fontSize: '28px' }
-                        }
+                        "& .MuiInput-input": {
+                          fontSize: "clamp(14px, 2vw, 20px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(20px, 1.3vw, 22px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(22px, 1.1vw, 23px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "24px" },
+                          "@media (min-width: 3840px)": { fontSize: "28px" },
+                        },
                       }}
                     />
                   </div>
@@ -1210,29 +1317,39 @@ const textFieldStyle = {
                         ...textFieldStyle,
                         "& .MuiInput-input": {
                           cursor: "pointer",
-                          fontSize: 'clamp(14px, 2vw, 20px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(20px, 1.3vw, 22px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(22px, 1.1vw, 23px)' },
-                          '@media (min-width: 2560px)': { fontSize: '24px' },
-                          '@media (min-width: 3840px)': { fontSize: '28px' }
+                          fontSize: "clamp(14px, 2vw, 20px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(20px, 1.3vw, 22px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(22px, 1.1vw, 23px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "24px" },
+                          "@media (min-width: 3840px)": { fontSize: "28px" },
                         },
-                        '& .MuiInputLabel-root': {
-                          fontSize: 'clamp(16px, 2.5vw, 24px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
-                          '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' }
-                        }
+                        "& .MuiInputLabel-root": {
+                          fontSize: "clamp(16px, 2.5vw, 24px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(24px, 1.5vw, 26px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(26px, 1.3vw, 27px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "28px" },
+                          "@media (min-width: 3840px)": { fontSize: "32px" },
+                        },
                       }}
                     />
                   </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-6 md:gap-8 2xl:gap-10 
+                <div
+                  className="flex flex-col md:flex-row gap-6 md:gap-8 2xl:gap-10 
                                 [@media_(min-width:_1800px)]:gap-11
                                 [@media_(min-width:_2200px)]:gap-11.5
                                 [@media_(min-width:_2560px)]:gap-12 
-                                [@media_(min-width:_3840px)]:gap-16">
+                                [@media_(min-width:_3840px)]:gap-16"
+                >
                   <div className="w-full md:flex-1">
                     <FormControl
                       fullWidth
@@ -1243,11 +1360,15 @@ const textFieldStyle = {
                         id="diagnosis-type-label"
                         sx={{
                           color: "#4b2c5e",
-                          fontSize: 'clamp(16px, 2.5vw, 24px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
-                          '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' },
+                          fontSize: "clamp(16px, 2.5vw, 24px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(24px, 1.5vw, 26px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(26px, 1.3vw, 27px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "28px" },
+                          "@media (min-width: 3840px)": { fontSize: "32px" },
                           fontFamily: "Helvetica",
                           "&.Mui-focused": {
                             color: "#4b2c5e",
@@ -1265,25 +1386,37 @@ const textFieldStyle = {
                         onChange={handleChange}
                         sx={{
                           ...selectFieldStyle,
-                          '& .MuiSelect-select': {
-                            fontSize: 'clamp(14px, 2vw, 20px)',
-                            '@media (min-width: 1800px)': { fontSize: 'clamp(20px, 1.3vw, 22px)' },
-                            '@media (min-width: 2200px)': { fontSize: 'clamp(22px, 1.1vw, 23px)' },
-                            '@media (min-width: 2560px)': { fontSize: '24px' },
-                            '@media (min-width: 3840px)': { fontSize: '28px' }
-                          }
+                          "& .MuiSelect-select": {
+                            fontSize: "clamp(14px, 2vw, 20px)",
+                            "@media (min-width: 1800px)": {
+                              fontSize: "clamp(20px, 1.3vw, 22px)",
+                            },
+                            "@media (min-width: 2200px)": {
+                              fontSize: "clamp(22px, 1.1vw, 23px)",
+                            },
+                            "@media (min-width: 2560px)": { fontSize: "24px" },
+                            "@media (min-width: 3840px)": { fontSize: "28px" },
+                          },
                         }}
                         MenuProps={{
                           PaperProps: {
                             sx: {
                               "& .MuiMenuItem-root": {
                                 ...menuItemStyle,
-                                fontSize: 'clamp(14px, 2vw, 20px)',
-                                '@media (min-width: 1800px)': { fontSize: 'clamp(20px, 1.3vw, 22px)' },
-                                '@media (min-width: 2200px)': { fontSize: 'clamp(22px, 1.1vw, 23px)' },
-                                '@media (min-width: 2560px)': { fontSize: '24px' },
-                                '@media (min-width: 3840px)': { fontSize: '28px' }
-                              }
+                                fontSize: "clamp(14px, 2vw, 20px)",
+                                "@media (min-width: 1800px)": {
+                                  fontSize: "clamp(20px, 1.3vw, 22px)",
+                                },
+                                "@media (min-width: 2200px)": {
+                                  fontSize: "clamp(22px, 1.1vw, 23px)",
+                                },
+                                "@media (min-width: 2560px)": {
+                                  fontSize: "24px",
+                                },
+                                "@media (min-width: 3840px)": {
+                                  fontSize: "28px",
+                                },
+                              },
                             },
                           },
                         }}
@@ -1294,13 +1427,21 @@ const textFieldStyle = {
                         <MenuItem value="other">Other</MenuItem>
                       </Select>
                       {errors.diagnosisType && (
-                        <FormHelperText sx={{
-                          fontSize: 'clamp(12px, 1.5vw, 16px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(16px, 1vw, 18px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(18px, 0.9vw, 19px)' },
-                          '@media (min-width: 2560px)': { fontSize: '20px' },
-                          '@media (min-width: 3840px)': { fontSize: '24px' }
-                        }}>{errors.diagnosisType}</FormHelperText>
+                        <FormHelperText
+                          sx={{
+                            fontSize: "clamp(12px, 1.5vw, 16px)",
+                            "@media (min-width: 1800px)": {
+                              fontSize: "clamp(16px, 1vw, 18px)",
+                            },
+                            "@media (min-width: 2200px)": {
+                              fontSize: "clamp(18px, 0.9vw, 19px)",
+                            },
+                            "@media (min-width: 2560px)": { fontSize: "20px" },
+                            "@media (min-width: 3840px)": { fontSize: "24px" },
+                          }}
+                        >
+                          {errors.diagnosisType}
+                        </FormHelperText>
                       )}
                     </FormControl>
                   </div>
@@ -1317,21 +1458,29 @@ const textFieldStyle = {
                       helperText={errors.jobTitle}
                       sx={{
                         ...textFieldStyle,
-                        '& .MuiInputLabel-root': {
-                          fontSize: 'clamp(16px, 2.5vw, 24px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
-                          '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' },
-                          'marginTop': '-8px'
+                        "& .MuiInputLabel-root": {
+                          fontSize: "clamp(16px, 2.5vw, 24px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(24px, 1.5vw, 26px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(26px, 1.3vw, 27px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "28px" },
+                          "@media (min-width: 3840px)": { fontSize: "32px" },
+                          marginTop: "-8px",
                         },
-                        '& .MuiInput-input': {
-                          fontSize: 'clamp(14px, 2vw, 20px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(20px, 1.3vw, 22px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(22px, 1.1vw, 23px)' },
-                          '@media (min-width: 2560px)': { fontSize: '24px' },
-                          '@media (min-width: 3840px)': { fontSize: '28px' }
-                        }
+                        "& .MuiInput-input": {
+                          fontSize: "clamp(14px, 2vw, 20px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(20px, 1.3vw, 22px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(22px, 1.1vw, 23px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "24px" },
+                          "@media (min-width: 3840px)": { fontSize: "28px" },
+                        },
                       }}
                     />
                   </div>
@@ -1351,44 +1500,55 @@ const textFieldStyle = {
                       helperText={errors.otherDiagnosis}
                       sx={{
                         ...textFieldStyle,
-                        '& .MuiInputLabel-root': {
-                          fontSize: 'clamp(16px, 2.5vw, 24px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(24px, 1.5vw, 26px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(26px, 1.3vw, 27px)' },
-                          '@media (min-width: 2560px)': { fontSize: '28px' },
-                          '@media (min-width: 3840px)': { fontSize: '32px' },
-                          'marginTop': '-8px'
+                        "& .MuiInputLabel-root": {
+                          fontSize: "clamp(16px, 2.5vw, 24px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(24px, 1.5vw, 26px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(26px, 1.3vw, 27px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "28px" },
+                          "@media (min-width: 3840px)": { fontSize: "32px" },
+                          marginTop: "-8px",
                         },
-                        '& .MuiInput-input': {
-                          fontSize: 'clamp(14px, 2vw, 20px)',
-                          '@media (min-width: 1800px)': { fontSize: 'clamp(20px, 1.3vw, 22px)' },
-                          '@media (min-width: 2200px)': { fontSize: 'clamp(22px, 1.1vw, 23px)' },
-                          '@media (min-width: 2560px)': { fontSize: '24px' },
-                          '@media (min-width: 3840px)': { fontSize: '28px' }
-                        }
+                        "& .MuiInput-input": {
+                          fontSize: "clamp(14px, 2vw, 20px)",
+                          "@media (min-width: 1800px)": {
+                            fontSize: "clamp(20px, 1.3vw, 22px)",
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: "clamp(22px, 1.1vw, 23px)",
+                          },
+                          "@media (min-width: 2560px)": { fontSize: "24px" },
+                          "@media (min-width: 3840px)": { fontSize: "28px" },
+                        },
                       }}
                     />
                   </div>
                 )}
 
-              <div className="space-y-4 2xl:space-y-6 
+                <div
+                  className="space-y-4 2xl:space-y-6 
                 [@media_(min-width:_1800px)]:space-y-7
                 [@media_(min-width:_2200px)]:space-y-7.5
                 [@media_(min-width:_2560px)]:space-y-8 
-                [@media_(min-width:_3840px)]:space-y-10">
-
-  {/* Privacy Policy Checkbox */}
-  <div className="flex items-start gap-4 2xl:gap-6 
+                [@media_(min-width:_3840px)]:space-y-10"
+                >
+                  {/* Privacy Policy Checkbox */}
+                  <div
+                    className="flex items-start gap-4 2xl:gap-6 
                   [@media_(min-width:_1800px)]:gap-7
                   [@media_(min-width:_2200px)]:gap-7.5
                   [@media_(min-width:_2560px)]:gap-8 
-                  [@media_(min-width:_3840px)]:gap-10">
-    <input
-      type="checkbox"
-      name="privacyPolicy"
-      checked={formData.privacyPolicy}
-      onChange={handleChange}
-      className="flex-shrink-0 mt-1 2xl:mt-2 
+                  [@media_(min-width:_3840px)]:gap-10"
+                  >
+                    <input
+                      type="checkbox"
+                      name="privacyPolicy"
+                      checked={formData.privacyPolicy}
+                      onChange={handleChange}
+                      className="flex-shrink-0 mt-1 2xl:mt-2 
                 [@media_(min-width:_1800px)]:mt-2.5
                 [@media_(min-width:_2200px)]:mt-2.8
                 [@media_(min-width:_2560px)]:mt-3 
@@ -1398,50 +1558,72 @@ const textFieldStyle = {
                 [@media_(min-width:_2200px)]:w-[1.45rem] [@media_(min-width:_2200px)]:h-[1.45rem]
                 [@media_(min-width:_2560px)]:w-6 [@media_(min-width:_2560px)]:h-6 
                 [@media_(min-width:_3840px)]:w-7 [@media_(min-width:_3840px)]:h-7"
-    />
-    <div className="text-xs sm:text-sm 2xl:text-base 
+                    />
+                    <div
+                      className="text-xs sm:text-sm 2xl:text-base 
                     [@media_(min-width:_1800px)]:text-[clamp(16px,_1vw,_17px)]
                     [@media_(min-width:_2200px)]:text-[clamp(17px,_0.9vw,_18px)]
                     [@media_(min-width:_2560px)]:text-lg 
                     [@media_(min-width:_3840px)]:text-xl 
-                    font-helvetica text-left">
-      <span className="block" data-tf-element-role="consent-opt-in">
-        I agree to the{" "}
-        <a href="/PrivacyPolicy" className="underline hover:text-blue-200">
-          privacy policy
-        </a>{" "}
-        and{" "}
-        <a href="/Disclaimer" className="underline hover:text-blue-200">
-          disclaimer
-        </a>
-        &nbsp; and give my express written consent, affiliates
-        and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
-      </span>
-    </div>
-  </div>
-  {errors.privacyPolicy && (
-    <div className="text-red-500 text-sm 2xl:text-base 
+                    font-helvetica text-left"
+                    >
+                      <span
+                        className="block"
+                        data-tf-element-role="consent-opt-in"
+                      >
+                        I agree to the{" "}
+                        <a
+                          href="/PrivacyPolicy"
+                          className="underline hover:text-blue-200"
+                        >
+                          privacy policy
+                        </a>{" "}
+                        and{" "}
+                        <a
+                          href="/Disclaimer"
+                          className="underline hover:text-blue-200"
+                        >
+                          disclaimer
+                        </a>
+                        &nbsp; and give my express written consent, affiliates
+                        and/or lawyer to contact you at the number provided
+                        above, even if this number is a wireless number or if I
+                        am presently listed on a Do Not Call list. I understand
+                        that I may be contacted by telephone, email, text
+                        message or mail regarding case options and that I may be
+                        called using automatic dialing equipment. Message and
+                        data rates may apply. My consent does not require
+                        purchase. This is Legal advertising.
+                      </span>
+                    </div>
+                  </div>
+                  {errors.privacyPolicy && (
+                    <div
+                      className="text-red-500 text-sm 2xl:text-base 
                     [@media_(min-width:_1800px)]:text-[clamp(16px,_1vw,_17px)]
                     [@media_(min-width:_2200px)]:text-[clamp(17px,_0.9vw,_18px)]
                     [@media_(min-width:_2560px)]:text-lg 
-                    [@media_(min-width:_3840px)]:text-xl">
-      {errors.privacyPolicy}
-    </div>
-  )}
+                    [@media_(min-width:_3840px)]:text-xl"
+                    >
+                      {errors.privacyPolicy}
+                    </div>
+                  )}
 
-  {/* Human Verification Checkbox */}
-  <div className="flex items-start gap-4 2xl:gap-6 
+                  {/* Human Verification Checkbox */}
+                  <div
+                    className="flex items-start gap-4 2xl:gap-6 
                   [@media_(min-width:_1800px)]:gap-7
                   [@media_(min-width:_2200px)]:gap-7.5
                   [@media_(min-width:_2560px)]:gap-8 
-                  [@media_(min-width:_3840px)]:gap-10">
-    <input
-      type="checkbox"
-      name="humanVerification"
-      checked={formData.humanVerification}
-      onChange={handleChange}
-      data-tf-element-role="consent-opt-in"
-      className="flex-shrink-0 mt-1 2xl:mt-2 
+                  [@media_(min-width:_3840px)]:gap-10"
+                  >
+                    <input
+                      type="checkbox"
+                      name="humanVerification"
+                      checked={formData.humanVerification}
+                      onChange={handleChange}
+                      data-tf-element-role="consent-opt-in"
+                      className="flex-shrink-0 mt-1 2xl:mt-2 
                 [@media_(min-width:_1800px)]:mt-2.5
                 [@media_(min-width:_2200px)]:mt-2.8
                 [@media_(min-width:_2560px)]:mt-3 
@@ -1451,39 +1633,42 @@ const textFieldStyle = {
                 [@media_(min-width:_2200px)]:w-[1.45rem] [@media_(min-width:_2200px)]:h-[1.45rem]
                 [@media_(min-width:_2560px)]:w-6 [@media_(min-width:_2560px)]:h-6 
                 [@media_(min-width:_3840px)]:w-7 [@media_(min-width:_3840px)]:h-7"
-    />
-    <div className="text-xs sm:text-sm 2xl:text-base 
+                    />
+                    <div
+                      className="text-xs sm:text-sm 2xl:text-base 
                     [@media_(min-width:_1800px)]:text-[clamp(16px,_1vw,_17px)]
                     [@media_(min-width:_2200px)]:text-[clamp(17px,_0.9vw,_18px)]
                     [@media_(min-width:_2560px)]:text-lg 
                     [@media_(min-width:_3840px)]:text-xl
-                    font-helvetica">
-      Please check this box to verify you're a person.
-    </div>
-  </div>
-  {errors.humanVerification && (
-    <div className="text-red-500 text-sm 2xl:text-base 
+                    font-helvetica"
+                    >
+                      Please check this box to verify you're a person.
+                    </div>
+                  </div>
+                  {errors.humanVerification && (
+                    <div
+                      className="text-red-500 text-sm 2xl:text-base 
                     [@media_(min-width:_1800px)]:text-[clamp(16px,_1vw,_17px)]
                     [@media_(min-width:_2200px)]:text-[clamp(17px,_0.9vw,_18px)]
                     [@media_(min-width:_2560px)]:text-lg 
-                    [@media_(min-width:_3840px)]:text-xl">
-      {errors.humanVerification}
-    </div>
-  )}
-</div>
-
+                    [@media_(min-width:_3840px)]:text-xl"
+                    >
+                      {errors.humanVerification}
+                    </div>
+                  )}
+                </div>
 
                 {formData.humanVerification && (
-                            <CustomCaptcha
-            onCaptchaChange={handleCaptchaChange}
-            resetTrigger={captchaResetTrigger}
-            disabled={isSubmitting}
-          />
+                  <CustomCaptcha
+                    onCaptchaChange={handleCaptchaChange}
+                    resetTrigger={captchaResetTrigger}
+                    disabled={isSubmitting}
+                  />
                 )}
 
                 <div className="text-left sm:text-left">
                   <button
-                    type="submit" 
+                    type="submit"
                     disabled={isSubmitting}
                     data-tf-element-role="consent-opt-in"
                     className={`rounded-[10px] 2xl:rounded-[15px] 
@@ -1513,20 +1698,24 @@ const textFieldStyle = {
                                [@media_(min-width:_2200px)]:gap-3.8
                                [@media_(min-width:_2560px)]:gap-4 
                                [@media_(min-width:_3840px)]:gap-5 ${
-                      isSubmitting
-                        ? "opacity-70 cursor-not-allowed"
-                        : "hover:bg-[#3a2249]"
-                    }`}
+                                 isSubmitting
+                                   ? "opacity-70 cursor-not-allowed"
+                                   : "hover:bg-[#3a2249]"
+                               }`}
                   >
                     {isSubmitting ? (
                       <>
-                        <CircularProgress size={20} color="inherit" className="2xl:!w-6 2xl:!h-6 
+                        <CircularProgress
+                          size={20}
+                          color="inherit"
+                          className="2xl:!w-6 2xl:!h-6 
                                          [@media_(min-width:_1800px)]:!w-7 [@media_(min-width:_1800px)]:!h-7
                                          [@media_(min-width:_2200px)]:!w-[1.8rem] [@media_(min-width:_2200px)]:!h-[1.8rem]
                                          [@media_(min-width:_2560px)]:!w-8 [@media_(min-width:_2560px)]:!h-8 
-                                         [@media_(min-width:_3840px)]:!w-10 [@media_(min-width:_3840px)]:!h-10" />
+                                         [@media_(min-width:_3840px)]:!w-10 [@media_(min-width:_3840px)]:!h-10"
+                        />
                         Submitting...
-                      </>   
+                      </>
                     ) : (
                       "Submit"
                     )}
@@ -1581,6 +1770,24 @@ const textFieldStyle = {
             className="space-y-6"
             data-tf-element-role="offer"
           >
+            <input
+              type="hidden"
+              id="xxTrustedFormCertUrl"
+              name="xxTrustedFormCertUrl"
+              value={certId}
+            />
+            <input
+              type="hidden"
+              id="xxTrustedFormCertToken"
+              name="xxTrustedFormCertToken"
+              value={tokenUrl}
+            />
+            <input
+              type="hidden"
+              id="xxTrustedFormPingUrl"
+              name="xxTrustedFormPingUrl"
+              value={pingUrl}
+            />
             <div className="flex flex-col gap-6">
               <TextField
                 id="firstName-mobile"
@@ -1594,7 +1801,7 @@ const textFieldStyle = {
                 helperText={errors.firstName}
                 sx={textFieldStyle}
               />
-              
+
               <TextField
                 id="lastName-mobile"
                 name="lastName"
@@ -1625,7 +1832,7 @@ const textFieldStyle = {
                 placeholder="+1 XXX-XXX-XXXX"
                 sx={textFieldStyle}
               />
-              
+
               <TextField
                 id="emailId-mobile"
                 name="emailId"
@@ -1663,7 +1870,7 @@ const textFieldStyle = {
                 }}
                 sx={textFieldStyle}
               />
-              
+
               <TextField
                 id="dateOfDiagnosis-mobile"
                 name="dateOfDiagnosis"
@@ -1732,7 +1939,7 @@ const textFieldStyle = {
                   <FormHelperText>{errors.diagnosisType}</FormHelperText>
                 )}
               </FormControl>
-              
+
               <TextField
                 id="jobTitle-mobile"
                 name="jobTitle"
@@ -1776,11 +1983,17 @@ const textFieldStyle = {
                 <div className="text-xs sm:text-sm font-helvetica">
                   <span className="block" data-tf-element-role="consent-opt-in">
                     I agree to the{" "}
-                    <a href="/PrivacyPolicy" className="underline hover:text-blue-200">
+                    <a
+                      href="/PrivacyPolicy"
+                      className="underline hover:text-blue-200"
+                    >
                       privacy policy
                     </a>{" "}
                     and{" "}
-                    <a href="/Disclaimer" className="underline hover:text-blue-200">
+                    <a
+                      href="/Disclaimer"
+                      className="underline hover:text-blue-200"
+                    >
                       disclaimer
                     </a>
                     &nbsp; and give my express written consent, affiliates
@@ -1822,11 +2035,11 @@ const textFieldStyle = {
             </div>
 
             {formData.humanVerification && (
-                        <CustomCaptcha
-            onCaptchaChange={handleCaptchaChange}
-            resetTrigger={captchaResetTrigger}
-            disabled={isSubmitting}
-          />
+              <CustomCaptcha
+                onCaptchaChange={handleCaptchaChange}
+                resetTrigger={captchaResetTrigger}
+                disabled={isSubmitting}
+              />
             )}
 
             <div className="text-left sm:text-left">
