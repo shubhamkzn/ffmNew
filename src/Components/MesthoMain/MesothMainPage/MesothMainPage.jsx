@@ -9,9 +9,12 @@ import Footer from "../../Footer/Footer"
 import MesothFourth from '../Mesoth-Fourth/MesothFour';
 import MesothFive from '../Mesoth-Five/MesothFive';
 import HomeEight from '../../Home-Eight/HomeEight';
-
+import { useEffect } from 'react';
 
 function MesothMainPage() {
+    useEffect(() => {
+          window.scrollTo(0, 0);  
+      }, []);
   return (
     <div>
       {/* <Header /> */}

@@ -7,10 +7,13 @@ import image4 from "../../assets/Group 35.png";
 
 function MesoOne() {
   return (
+    <>
     <div
       style={{ backgroundColor: "#FAF3EC" }}
       className="flex justify-center p-1 lg:w-[100%] xl:w-[100%] 4xl:w-[100vw]"
     >
+
+      
       <div className="max-w-[105rem] w-full px-10 sm:px-6 lg:w-[110%] 4xl:max-w-[180rem] 4xl:px-32">
         {/* Mobile Layout */}
         <div className="lg:hidden flex flex-col items-center py-8">
@@ -127,6 +130,7 @@ function MesoOne() {
 
       
     </div>
+    </>
   );
 }
 

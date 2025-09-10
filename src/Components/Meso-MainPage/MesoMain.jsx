@@ -1,7 +1,8 @@
 import React from 'react'
 
 import Header from "../Header/Header";
-import Navbar from "../NavBar/Navbar"
+import NavbarMarquee from "../NavBarMarquee/NavbarMarquee"
+import Navbar from '../NavBar/Navbar';
 import MesoOne from "../Meso-one/MesoOne"
 import HomeSix from "../Home-six/HomeSix"
 import Hometwo from "../Home-two/Hometwo"
@@ -19,7 +20,9 @@ function MesoMain() {
     return (
         <div className='w-auto h-full overflow-hidden'>
             {/* <Header /> */}
-            <Navbar />
+            <NavbarMarquee />
+            {/* <Navbar/> */}
+             {/* <Marquee/> */}
             <MesoOne />
             <Hometwo />
             <HomeThree />

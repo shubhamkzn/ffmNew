@@ -4,9 +4,11 @@ import how from "../../assets/how we help.png"
 import how2 from "../../assets/how we help (1).png"
 import { useNavigate } from 'react-router-dom';
 import frame from "../../assets/c.png"
+import frame2 from "../../assets/Frame 115.png"
 import home6_1 from "../../assets/home6_1.png"
 import home6_2 from "../../assets/home6_2.png"
 import home6_3 from "../../assets/home6_3.png"
+import ImageComponent from './ImageComponenet';
 
 function HomeSix() {
   const navigate = useNavigate();
@@ -241,16 +243,39 @@ function HomeSix() {
         </div>
         
         {/* Bottom Frame with Improved Tablet Spacing */}
-        <div className="px-6 md:px-12 lg:px-8">
-          <img
-            src={frame}
-            className="w-full max-w-3xl md:max-w-4xl lg:max-w-5xl 2xl:max-w-7xl 
-                       [@media_(min-width:_2560px)]:max-w-[90rem] 
-                       [@media_(min-width:_3840px)]:max-w-[110rem] 
-                       h-auto mx-auto"
-            alt="Decorative Frame"
-          />
-        </div>
+<div className="px-6 md:px-12 lg:px-8">
+  <div className="relative w-full">
+    {/* Background Image */}
+    <img
+      src={frame2}
+      className="w-full max-w-3xl md:max-w-4xl lg:max-w-5xl 2xl:max-w-7xl 
+                 [@media_(min-width:_2560px)]:max-w-[90rem] 
+                 [@media_(min-width:_3840px)]:max-w-[110rem] 
+                 h-auto mx-auto"
+      alt="Decorative Frame"
+    />
+
+    {/* Centered Text + Button */}
+    <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+      <h1 className="text-4xl md:text-6xl lg:text-7xl 2xl:text-8xl font-serif text-white leading-snug">
+        Support. Justice. <br /> Peace of mind.
+      </h1>
+      <p className="mt-4 text-lg md:text-2xl lg:text-3xl text-white">
+        That’s what we’re here to offer
+      </p>
+      <button
+        onClick={() => {
+          navigate("/AboutMain");
+        }}
+        className="mt-6 px-5 py-2.5 text-base md:text-lg lg:text-xl bg-white text-blue-700 font-medium rounded-xl shadow-md 
+                   transition duration-300 hover:bg-gray-100"
+      >
+        Explore Your Legal Options
+      </button>
+    </div>
+  </div>
+</div>
+
       </div>
 
       {/* Mobile Version */}
@@ -432,22 +457,38 @@ function HomeSix() {
           </div>
         </div>
 
-        {/* Bottom Frame */}
-        <div className="px-6 sm:px-8 2xl:px-10 
-                        [@media_(min-width:_2560px)]:px-12 
-                        [@media_(min-width:_3840px)]:px-16 
-                        mt-6 2xl:mt-8 
-                        [@media_(min-width:_2560px)]:mt-10 
-                        [@media_(min-width:_3840px)]:mt-12 
-                        pb-6 2xl:pb-8 
-                        [@media_(min-width:_2560px)]:pb-10 
-                        [@media_(min-width:_3840px)]:pb-12">
-          <img
-            src={frame}
-            className="w-full h-auto"
-            alt="Decorative Frame"
-          />
-        </div>
+{/* Bottom Frame - Mobile Only */}
+<div className="block md:hidden px-6 mt-6 pb-6">
+  <div className="relative w-full">
+    {/* Background Image */}
+    <img
+      src={frame2}
+      className="w-full max-w-sm h-auto mx-auto"
+      alt="Decorative Frame"
+    />
+
+    {/* Centered Text + Button */}
+    <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+      <h1 className="text-2xl font-serif text-white leading-snug">
+        Support. Justice. <br /> Peace of mind.
+      </h1>
+      <p className="mt-3 text-base text-white">
+        That’s what we’re here to offer
+      </p>
+      <button
+      onClick={()=>{
+        navigate("/AboutMain")
+      }}
+        className="mt-4 px-3 py-1.5 bg-white text-blue-700 text-sm font-medium 
+                   rounded-lg shadow-md transition duration-300 hover:bg-gray-100"
+      >
+        Explore Your Legal Options
+      </button>
+    </div>
+  </div>
+</div>
+
+
       </div>
     </>
   )

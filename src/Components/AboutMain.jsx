@@ -9,8 +9,11 @@ import AboutUs7 from "../Components/About7/AboutUs7"
 import Navbar from './NavBar/Navbar';
 import Footer from "../Components/Footer/Footer"
 import Header from './Header/Header';
-
+import { useEffect } from 'react';
 const AboutMain = () => {
+    useEffect(() => {
+          window.scrollTo(0, 0);  
+      }, []);
   return (
     <div>
       {/* <Header /> */}

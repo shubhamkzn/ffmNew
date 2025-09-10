@@ -5,18 +5,17 @@ module.exports = {
     extend: {
       fontFamily: {
         georgia: ['Georgia', 'serif'],
+        rethink: ['"Rethink Sans"', 'sans-serif'],
       },
       screens: {
-        'customDesktop': '1024px',
-         '3xl': '2560px',
+        customDesktop: '1024px',
+        '3xl': '2560px',
         '4xl': '3840px',
       },
     },
-    
   },
   corePlugins: {
     preflight: false,
   },
   plugins: [],
 };
-

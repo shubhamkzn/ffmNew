@@ -4,7 +4,6 @@ import { IoClose } from "react-icons/io5";
 import Drawer from '../../assets/drawer.png';
 import CallIcon from '../../assets/phoneIcon.png';
 import logo from '../../assets/Meso logo-01 1.png';
-
 const Navbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -110,20 +109,19 @@ const Navbar = () => {
               { to: "/MesothMainPage", label: "Mesothelioma" },
               { to: "/AboutMain", label: "About us" },
             ].map(({ to, label }) => (
-             <NavLink
-  key={label}
-  to={to}
-  className={({ isActive }) =>
-    `nav-link-animation no-underline font-helvetica text-[7vw] max-w-[280px] md:text-[28px] lg:text-[32px] xl:text-[36px] 3xl:text-[40px] 4xl:text-[44px] ${
-      isActive
-        ? `text-[#4B2C5E] font-semibold relative after:content-[''] after:absolute after:w-full after:h-[3px] after:bottom-[-5px] after:left-0 after:bg-gradient-to-r after:from-[#4B2C5E] after:to-[#2E4A7D]`
-        : 'text-[#4B2C5E]'
-    } transition-colors ease-in-out duration-300 max-[360px]:text-[24px]`
-  }
-  onClick={closeMenu}
->
-  {label}
-</NavLink>
+              <NavLink
+                key={label}
+                to={to}
+                className={({ isActive }) =>
+                  `nav-link-animation no-underline font-helvetica text-[7vw] max-w-[280px] md:text-[28px] lg:text-[32px] xl:text-[36px] 3xl:text-[40px] 4xl:text-[44px] ${isActive
+                    ? `text-[#4B2C5E] font-semibold relative after:content-[''] after:absolute after:w-full after:h-[3px] after:bottom-[-5px] after:left-0 after:bg-gradient-to-r after:from-[#4B2C5E] after:to-[#2E4A7D]`
+                    : 'text-[#4B2C5E]'
+                  } transition-colors ease-in-out duration-300 max-[360px]:text-[24px]`
+                }
+                onClick={closeMenu}
+              >
+                {label}
+              </NavLink>
 
             ))}
 
@@ -151,26 +149,28 @@ const Navbar = () => {
           </div>
         </div>
       </div>
- 
-   {/* Desktop Navbar - Shows on customDesktop (≥1024px) */}
-<div className="hidden customDesktop:block fixed top-0 left-0 w-full bg-[#FAF3EC] z-[1000] shadow-[0_2px_10px_rgba(0,0,0,0.1)]">
-  <div className=" mx-auto flex flex-wrap items-center justify-between px-[15px] sm:px-[25px] xl:px-[80px] 3xl:px-[120px] 4xl:px-[180px] py-[15px] lg:py-[20px] 3xl:py-[25px] 4xl:py-[35px] bg-[#FAF3EC] w-full">
+
+      {/* Desktop Navbar - Shows on customDesktop (≥1024px) */}
+<div className="hidden customDesktop:block fixed top-0 left-0 w-full bg-[#FAF3EC] z-[1000] shadow-[0_1px_8px_rgba(0,0,0,0.1)]">
+  <div className="mx-auto flex items-center justify-between 
+                  px-[18px] sm:px-[28px] xl:px-[70px] 3xl:px-[100px] 4xl:px-[140px] 
+                  py-[15px] lg:py-[20px] 3xl:py-[25px] 4xl:py-[30px] bg-[#FAF3EC] w-full">
     
     {/* Left: Logo + Nav Links */}
-    <div className="flex items-center gap-[40px] 3xl:gap-[60px] 4xl:gap-[80px] flex-wrap">
+    <div className="flex items-center gap-[28px] lg:gap-[35px] 3xl:gap-[45px] 4xl:gap-[55px]">
       {/* Logo */}
-      <div className="p-[6px] lg:p-[8px] 3xl:p-[10px] 4xl:p-[12px] px-[10px] lg:px-[15px] 3xl:px-[20px] 4xl:px-[25px] rounded-[4px]">
+      <div className="p-[4px] lg:p-[6px] 3xl:p-[8px] 4xl:p-[10px] rounded-[4px]">
         <a href="/">
           <img
             src={logo}
             alt="Mesotheliamo Logo"
-            className="w-[100px] sm:w-[120px] lg:w-[150px] 3xl:w-[180px] 4xl:w-[220px] h-auto"
+            className="w-[85px] sm:w-[105px] lg:w-[125px] 3xl:w-[150px] 4xl:w-[170px] h-auto"
           />
         </a>
       </div>
 
       {/* Nav Links */}
-      <div className="flex gap-[20px] lg:gap-[40px] 3xl:gap-[50px] 4xl:gap-[65px] flex-wrap">
+      <div className="flex gap-[18px] lg:gap-[28px] 3xl:gap-[35px] 4xl:gap-[42px]">
         {[
           { to: "/", label: "Home" },
           { to: "/MesothMainPage", label: "Mesothelioma" },
@@ -181,9 +181,9 @@ const Navbar = () => {
             to={to}
             style={{ textDecoration: "none" }}
             className={({ isActive }) =>
-              `font-helvetica font-normal text-[16px] sm:text-[18px] lg:text-[20px] xl:text-[24px] 3xl:text-[28px] 4xl:text-[32px] whitespace-nowrap cursor-pointer transition-colors ${
-                isActive ? "text-[#4B2C5E]" : "text-[#4B2C5E]"
-              }`
+              `font-helvetica font-normal text-[15px] sm:text-[16px] lg:text-[18px] xl:text-[20px] 3xl:text-[22px] 4xl:text-[24px] 
+               whitespace-nowrap cursor-pointer transition-colors 
+               ${isActive ? "text-[#4B2C5E]" : "text-[#4B2C5E]"}`
             }
           >
             {label}
@@ -192,36 +192,33 @@ const Navbar = () => {
       </div>
     </div>
 
-    {/* Right: Phone + CTA Button */}
-    <div className="flex items-center gap-[20px] 3xl:gap-[30px] 4xl:gap-[40px] flex-wrap justify-end mt-4 customDesktop:mt-0">
+    {/* Right: Phone + CTA */}
+    <div className="flex items-center gap-[18px] lg:gap-[22px] 3xl:gap-[28px] 4xl:gap-[32px]">
       {/* Phone */}
-      <div className="flex items-center gap-[10px] lg:gap-[15px] 3xl:gap-[18px] 4xl:gap-[22px]">
+      <div className="flex items-center gap-[8px] lg:gap-[10px]">
         <div
-          className="w-[40px] h-[40px] lg:w-[48px] lg:h-[48px] 3xl:w-[56px] 3xl:h-[56px] 4xl:w-[64px] 4xl:h-[64px] rounded-full border-2 3xl:border-[3px] 4xl:border-[4px] border-[#4B2C5E] flex items-center justify-center cursor-pointer"
+          className="w-[36px] h-[36px] lg:w-[42px] lg:h-[42px] 3xl:w-[46px] 3xl:h-[46px] 4xl:w-[50px] 4xl:h-[50px] 
+                     rounded-full border border-[#4B2C5E] flex items-center justify-center cursor-pointer"
           onClick={handlePhoneClick}
         >
           <img
             src={CallIcon}
             alt="Phone Icon"
-            className="w-[20px] h-[20px] lg:w-[35px] lg:h-[35px] xl:w-[45px] xl:h-[45px] 3xl:w-[55px] 3xl:h-[55px] 4xl:w-[55px] 4xl:h-[55px]"
+            className="w-[18px] h-[18px] lg:w-[20px] lg:h-[20px] 3xl:w-[22px] 3xl:h-[22px]"
           />
         </div>
-        <div className="text-left">
-          <p className="font-helvetica text-[14px] lg:text-[16px] xl:text-[18px] 3xl:text-[22px] 4xl:text-[26px] text-[#4B2C5E] mb-[2px]">
-            Call Us For Help
-          </p>
-          <p className="font-helvetica font-bold text-[18px] lg:text-[22px] xl:text-[24px] 3xl:text-[28px] 4xl:text-[32px] text-[#4B2C5E] m-0">
-            {phoneNumber}
-          </p>
-        </div>
+        <p className="font-helvetica font-bold text-[15px] lg:text-[17px] xl:text-[19px] 3xl:text-[21px] 4xl:text-[23px] text-[#4B2C5E] m-0">
+          {phoneNumber}
+        </p>
       </div>
 
       {/* CTA */}
       <div
-        className="bg-[#4B2C5E] rounded-[60px] 3xl:rounded-[70px] 4xl:rounded-[80px] py-[8px] px-[20px] lg:py-[10px] lg:px-[25px] 3xl:py-[14px] 3xl:px-[35px] 4xl:py-[18px] 4xl:px-[45px] cursor-pointer hover:bg-[#3a2249] transition-colors"
+        className="bg-[#4B2C5E] rounded-[50px] py-[8px] px-[18px] lg:py-[9px] lg:px-[22px] 3xl:py-[10px] 3xl:px-[26px] 4xl:py-[12px] 4xl:px-[30px] 
+                   cursor-pointer hover:bg-[#3a2249] transition-colors"
         onClick={() => navigate("/ClaimForm")}
       >
-        <span className="font-helvetica font-bold text-[16px] lg:text-[18px] xl:text-[20px] 3xl:text-[22px] 4xl:text-[24px] text-[#F5E7DA] whitespace-nowrap">
+        <span className="font-helvetica font-bold text-[15px] lg:text-[17px] xl:text-[18px] 3xl:text-[20px] 4xl:text-[22px] text-[#F5E7DA] whitespace-nowrap">
           Claim Form
         </span>
       </div>
@@ -229,8 +226,10 @@ const Navbar = () => {
   </div>
 </div>
 
+
+
     </>
   );
 };
- 
+
 export default Navbar;

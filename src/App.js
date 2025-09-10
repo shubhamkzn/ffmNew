@@ -83,7 +83,7 @@ import AudioLanderOne from './Components/AudioLanders/AudioLanderOne';
 import MesotheliomaLandingPageTest from './Components/FigmaDesign/MesotheliomaLandingPageTest';
 import VideoModalPlayer from './Components/FigmaDesign/VideoModalPlayer';
 import VideoOne from './Components/VideoCall/VideoOne.jsx';
-
+import PdfPageMain from './Components/PdfMain/PdfPageMain';
 function App() {
   
   const router = createBrowserRouter([
@@ -397,6 +397,10 @@ function App() {
     {
       path:'/t',
       element: <VideoModalPlayer/>
+    }
+    ,{
+      path:'/pdfFormpage',
+      element:<PdfPageMain/>
     }
   ]);
 
